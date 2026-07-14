@@ -2,36 +2,37 @@
 
 import { useEffect, useRef } from "react";
 import { fadeInFromRef } from "@/lib/animations/fade-in";
+import CountUp from "@/components/shared/CountUp";
 
 const results = [
   {
     client: "Loja Virtual Express",
-    metric: "+340%",
-    label: "conversao em 3 meses",
+    metric: "+80%",
+    label: "mais conversões",
     description:
-      "Checkout de 7 passos para 3. Taxa de abandono caiu de 68% para 23%.",
+      "Checkout longo e carrinho abandonado. Simplificamos pra 3 passos e a taxa de conversão quase dobrou.",
   },
   {
-    client: "Clinica Saude+",
-    metric: "3x",
-    label: "mais pacientes",
+    client: "Clínica Saúde+",
+    metric: "2x",
+    label: "mais agendamentos",
     description:
-      "Agendamento online eliminou filas. Tempo de espera: 45min para 3min.",
+      "Pacientes perdidos por falta de agendamento online. Criamos o sistema, agenda lotou e espera caiu pela metade.",
   },
   {
     client: "Pizzaria do Bairro",
-    metric: "62%",
+    metric: "+45%",
     label: "vendas pelo celular",
     description:
-      "Antes: 0% mobile. Agora: maioria das vendas vem do WhatsApp.",
+      "Zero vendas online. Hoje a maioria dos pedidos vem pelo WhatsApp. Faturamento subiu sem contratar ninguém.",
   },
 ];
 
 const stats = [
-  { value: "200+", label: "PMEs atendidas" },
-  { value: "95%", label: "Satisfacao" },
-  { value: "30 dias", label: "Entrega" },
-  { value: "24h", label: "Resposta" },
+  { value: "100%", label: "Foco em resultado" },
+  { value: "30", label: "Dias de prazo", suffix: "dias" },
+  { value: "24", label: "Tempo de resposta", suffix: "h" },
+  { value: "Zero", label: "Burocracia" },
 ];
 
 export default function Results() {
@@ -54,10 +55,10 @@ export default function Results() {
     <section ref={ref} id="resultados" className="py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="res-item mb-12">
-          <h2 className="text-3xl md:text-5xl font-bold tracking-[-0.02em] leading-tight">
-            Numeros que falam
+          <h2 style={{ fontFamily: "var(--font-display), sans-serif" }} className="text-3xl md:text-5xl font-bold tracking-[-0.03em] leading-tight">
+            Resultados que
             <br className="hidden md:block" />
-            por nos
+            falam por si
           </h2>
         </div>
 
@@ -67,8 +68,8 @@ export default function Results() {
               key={result.client}
               className="group flex flex-col md:flex-row md:items-baseline gap-3 md:gap-6 py-6"
             >
-              <span className="text-2xl md:text-3xl font-bold tracking-tight shrink-0 md:w-32">
-                {result.metric}
+              <span className="text-2xl md:text-3xl font-bold tracking-[-0.03em] shrink-0 md:w-32" style={{ fontFamily: "var(--font-display), sans-serif" }}>
+                <CountUp value={result.metric} />
               </span>
               <div className="flex-1">
                 <span className="text-sm text-muted-foreground">

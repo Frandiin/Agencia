@@ -1,10 +1,7 @@
 "use client";
 
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap, ScrollTrigger } from "./gsap-config";
 import type { RefObject } from "react";
-
-gsap.registerPlugin(ScrollTrigger);
 
 interface FadeInOptions {
   y?: number;

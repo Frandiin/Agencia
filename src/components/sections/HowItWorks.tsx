@@ -10,23 +10,23 @@ gsap.registerPlugin(ScrollTrigger);
 const steps = [
   {
     icon: MessageCircle,
-    title: "A gente escuta",
+    title: "Você conta o problema",
     description:
-      "Contou o problema. A gente entendeu. Sem papo furado, sem juridiques.",
+      "Sem reunião longa. Você explica o que precisa, a gente entende em 30 minutos e já parte pra ação.",
     duration: "30 min",
   },
   {
     icon: Wrench,
-    title: "A gente resolve",
+    title: "A gente constrói",
     description:
-      "Design + codigo + estrategia. Tudo junto, nada de enrolacao.",
+      "Código + estratégia + design. Tudo junto em 15 dias. Sem enrolação.",
     duration: "15 dias",
   },
   {
     icon: Rocket,
-    title: "A gente entrega",
+    title: "Você vende mais",
     description:
-      "Pronto. Landpage convertendo. Sistema rodando. Voce vendo resultado.",
+      "Landpage convertendo. Sistema rodando. Você vendo resultado real, e faturando mais por causa disso.",
     duration: "30 dias",
   },
 ];
@@ -153,13 +153,14 @@ export default function HowItWorks() {
     <section ref={ref} id="como-funciona" className="py-24 md:py-32 overflow-hidden">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="hw-title mb-16 max-w-2xl">
-          <h2 className="text-3xl md:text-5xl font-bold tracking-[-0.02em] leading-tight">
-            Simples. Direto.
+          <h2 style={{ fontFamily: "var(--font-display), sans-serif" }} className="text-3xl md:text-5xl font-bold tracking-[-0.03em] leading-tight">
+            Do problema ao resultado
             <br />
-            Rapido.
+            em 30 dias.
           </h2>
-          <p className="mt-4 text-muted-foreground leading-relaxed max-w-md">
-            Do primeiro contato ao resultado, o caminho e curto e transparente.
+          <p className="mt-4 text-base md:text-lg text-muted-foreground leading-relaxed max-w-md">
+            Sem reunião infinita. Sem projeto que trava. Você conta o que
+            precisa, a gente entrega funcionando.
           </p>
         </div>
 
@@ -188,14 +189,14 @@ export default function HowItWorks() {
                   </div>
 
                   {/* Number */}
-                  <div className="mb-3 text-6xl font-bold tracking-tighter text-primary/10 select-none transition-colors duration-300 group-hover:text-primary/20">
+                  <div className="mb-3 text-6xl font-bold tracking-[-0.03em] text-primary/10 select-none transition-colors duration-300 group-hover:text-primary/20" style={{ fontFamily: "var(--font-display), sans-serif" }}>
                     {String(i + 1).padStart(2, "0")}
                   </div>
 
                   {/* Decorative line */}
                   <div className={`hw-line-${i} mb-4 h-px w-12 bg-gradient-to-r from-primary to-transparent origin-left`} />
 
-                  <h3 className="text-xl font-bold tracking-tight">
+                  <h3 style={{ fontFamily: "var(--font-display), sans-serif" }} className="text-xl font-bold tracking-[-0.03em]">
                     {step.title}
                   </h3>
                   <p className="mt-2.5 text-sm text-muted-foreground leading-relaxed max-w-[280px]">

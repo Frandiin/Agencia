@@ -1,8 +1,14 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Users, Target, Heart } from "lucide-react";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export default function About() {
   const ref = useRef<HTMLElement>(null);
@@ -34,31 +40,45 @@ export default function About() {
         },
         "-=0.5",
       );
+
+      const aboutImg = ref.current?.querySelector(".about-img img");
+      if (aboutImg) {
+        gsap.fromTo(
+          aboutImg,
+          { scale: 1.15, y: 20 },
+          {
+            scale: 1,
+            y: -20,
+            ease: "none",
+            scrollTrigger: {
+              trigger: ref.current,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1,
+            },
+          }
+        );
+      }
     }, ref);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={ref} id="sobre" className="py-24 md:py-32 bg-muted/30">
+    <section ref={ref} id="sobre" aria-labelledby="sobre-title" className="py-24 md:py-32 bg-muted/30">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16 items-center">
           {/* Image */}
           <div className="about-img relative">
             <div className="aspect-[4/3] overflow-hidden rounded-2xl border border-border/50 bg-card">
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80"
-                alt="Time Agencia trabalhando junto"
+                alt="Equipe da Agência em reunião de planejamento digital"
+                width={800}
+                height={600}
                 className="h-full w-full object-cover"
                 loading="lazy"
               />
-            </div>
-            {/* Badge */}
-            <div className="absolute -bottom-6 -right-4 rounded-xl border border-border/50 bg-card/95 backdrop-blur-sm px-5 py-3 shadow-lg">
-              <p className="text-2xl font-bold text-primary">5+</p>
-              <p className="text-xs text-muted-foreground">
-                Anos de experiencia
-              </p>
             </div>
           </div>
 
@@ -69,15 +89,16 @@ export default function About() {
               Quem somos
             </div>
 
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-[-0.02em]">
-              Nao somos uma agencia <span className="text-primary">qualquer</span>
+            <h2 id="sobre-title" style={{ fontFamily: "var(--font-display), sans-serif" }} className="text-3xl md:text-5xl font-bold tracking-[-0.03em] leading-tight">
+              Quem faz <span className="text-primary">seu site</span> também vive de resultado
             </h2>
 
-            <p className="mt-5 text-muted-foreground leading-relaxed">
-              Somos 4 pessoas que acreditam que PME nao deveria pagar caro
-              pra ter presença online de qualidade. Começamos em 2020 fazendo
-              site pra amigos. Hoje atendemos mais de 200 empresas em todo o
-              Brasil.
+            <p className="mt-5 text-base md:text-lg text-muted-foreground leading-relaxed">
+              Comecei fazendo site pra amigos que tinham negócio próprio e
+              precisavam de presença online. Vi na prática o quanto uma boa
+              landpage e um sistema simples podem mudar o faturamento de uma
+              PME.               Hoje faço isso de forma profissional, com foco em
+              resultado, não em enfeite.
             </p>
 
             <div className="mt-8 space-y-4">
@@ -86,10 +107,10 @@ export default function About() {
                   <Users className="h-5 w-5 text-primary" />
                 </div>
                 <div>
-                  <p className="font-semibold">Time pequeno, atendimento proximo</p>
+                  <p className="font-semibold">Atendimento direto, sem enrolação</p>
                   <p className="text-sm text-muted-foreground">
-                    Voce fala direto com quem faz. Sem gerente de conta, sem
-                    fila.
+                    Você fala direto com quem desenvolve. Sem gerente de conta,
+                    sem fila, sem “vou verificar”.
                   </p>
                 </div>
               </div>
@@ -99,10 +120,10 @@ export default function About() {
                   <Target className="h-5 w-5 text-primary" />
                 </div>
                 <div>
-                  <p className="font-semibold">Foco em resultado, nao em bonito</p>
+                  <p className="font-semibold">Resultado, não enfeite</p>
                   <p className="text-sm text-muted-foreground">
-                    Site bonito que nao vende e arte. Nos fazemos o que
-                    converte.
+                    Site bonito que não vende não vale nada. Nós criamos o que
+                    gera resultado real pro seu negócio.
                   </p>
                 </div>
               </div>
@@ -114,7 +135,7 @@ export default function About() {
                 <div>
                   <p className="font-semibold">Garantia real de 30 dias</p>
                   <p className="text-sm text-muted-foreground">
-                    Se nao gostar, devolvemos 100%. Sem letra miuda.
+                    Se não gostar, devolvemos 100%. Sem letra miúda.
                   </p>
                 </div>
               </div>

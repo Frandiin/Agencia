@@ -1,54 +1,55 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import { Star, Quote } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
-const testimonials = [
+const faqs = [
   {
-    quote:
-      "Em 30 dias tínhamos uma landpage que converte. Antes perdíamos clientes por não ter presença online. Agora fechamos 3 contratos por mês só pelo site.",
-    author: "Marcos Silva",
-    role: "Dono, Silva & Filhos Materiais de Construção",
-    city: "Guarulhos, SP",
-    rating: 5,
-    result: "+180% em orçamentos online",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80",
+    question: "Quanto custa criar uma landpage?",
+    answer:
+      "O investimento varia conforme a complexidade do projeto. Trabalhamos com planos a partir de R$ 970. Na primeira conversa, a gente entende sua necessidade e apresenta uma proposta sem compromisso.",
   },
   {
-    quote:
-      "Eu era contra site. Achava perda de tempo. Quando vi o primeiro pedido chegando pelo WhatsApp do site, mudei de ideia. Hoje é nosso canal principal.",
-    author: "Fernanda Costa",
-    role: "Proprietária, Studio Beleza & Arte",
-    city: "Campinas, SP",
-    rating: 5,
-    result: "45+ leads/mês pelo site",
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80",
+    question: "Em quanto tempo meu site fica pronto?",
+    answer:
+      "O prazo padrão é de 15 a 30 dias, dependendo do projeto. Landpages mais simples ficam prontas em até 15 dias. Sistemas sob medida podem levar um pouco mais, mas você já começa a ver resultado antes de completar o prazo.",
   },
   {
-    quote:
-      "O sistema de agendamento online salvou nosso consultório. Pacientes agendam às 2h da manhã e a gente só confirma. Reduziu faltas em 60%.",
-    author: "Dr. Ricardo Mendes",
-    role: "Dentista, Clínica Sorriso",
-    city: "São Paulo, SP",
-    rating: 5,
-    result: "-60% faltas em consultas",
-    avatar: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=100&q=80",
+    question: "Vocês fazem só site ou também sistemas?",
+    answer:
+      "Fazemos os dois. Landpages que convertem visitantes em clientes e sistemas sob medida, como agendamento online, controle de estoque, gestão de clientes. Tudo feito pra resolver o problema específico do seu negócio.",
   },
   {
-    quote:
-      "Pedi um orçamento pra 3 agências. A Agência foi a única que entendeu que eu não queria site bonito, queria site que vendesse. E entregou.",
-    author: "Carlos Eduardo",
-    role: "Gerente, AutoPeças Brasil",
-    city: "Rio de Janeiro, RJ",
-    rating: 5,
-    result: "Faturamento 2x em 4 meses",
-    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80",
+    question: "Como funciona a garantia de 30 dias?",
+    answer:
+      "Se nos primeiros 30 dias após a entrega você não estiver satisfeito com o resultado, devolvemos 100% do valor investido. Sem letra miúda, sem burocracia. A gente trabalha com confiança.",
+  },
+  {
+    question: "Preciso ter domínio e hospedagem próprios?",
+    answer:
+      "Não. A gente cuida de tudo, registro de domínio, hospedagem e configuração. Você não precisa se preocupar com nada técnico. Só focar no seu negócio.",
+  },
+  {
+    question: "Vocês fazem manutenção depois de entregar o site?",
+    answer:
+      "Sim. Oferecemos suporte contínuo para atualizações, ajustes e melhorias. Seu site nunca fica parado, sempre evolui junto com o seu negócio.",
+  },
+  {
+    question: "Como sei se a landpage vai converter mesmo?",
+    answer:
+      "Nós estudamos o seu público, criamos uma copy com gatilhos de persuasão e testamos variants pra maximizar resultado. landpage não é só bonita, é pensada pra vender.",
+  },
+  {
+    question: "Trabalham com empresas de qualquer ramo?",
+    answer:
+      "Trabalhamos com PMEs de qualquer área, clínicas, lojas, restaurantes, serviços, indústrias. O que importa é você querer crescer de verdade.",
   },
 ];
 
 export default function Testimonials() {
   const ref = useRef<HTMLElement>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   useEffect(() => {
     if (!ref.current) return;
@@ -62,13 +63,13 @@ export default function Testimonials() {
       });
 
       tl.fromTo(
-        ".test-header",
+        ".faq-header",
         { y: 40, opacity: 0 },
         { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
       ).fromTo(
-        ".test-card",
-        { y: 30, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.6, stagger: 0.12, ease: "power3.out" },
+        ".faq-item",
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.5, stagger: 0.08, ease: "power3.out" },
         "-=0.4",
       );
     }, ref);
@@ -76,64 +77,49 @@ export default function Testimonials() {
     return () => ctx.revert();
   }, []);
 
+  const toggle = (i: number) => setOpenIndex(openIndex === i ? null : i);
+
   return (
     <section
       ref={ref}
-      id="depoimentos"
+      id="faq"
       className="py-24 md:py-32 bg-background"
     >
-      <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <div className="test-header text-center">
+      <div className="mx-auto max-w-3xl px-5 lg:px-8">
+        <div className="faq-header text-center">
           <div className="mb-4 inline-flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-primary">
             <span className="w-6 h-px bg-primary" />
-            Quem confia em nos
+            Dúvidas frequentes
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-[-0.02em]">
-            Nossos clientes <span className="text-primary">reais</span>
+          <h2 style={{ fontFamily: "var(--font-display), sans-serif" }} className="text-3xl md:text-5xl font-bold tracking-[-0.03em] leading-tight">
+            Perguntas que <span className="text-primary">todo mundo faz</span>
           </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-muted-foreground leading-relaxed">
-            PMEs de verdade que cresceram com nossos serviços. Sem虚构, sem
-            exagero — só resultados.
-          </p>
         </div>
 
-        <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2">
-          {testimonials.map((t) => (
-            <div
-              key={t.author}
-              className="test-card relative rounded-2xl border border-border/50 bg-card p-6 transition-all hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5"
-            >
-              <Quote className="absolute top-6 right-6 h-8 w-8 text-primary/10" />
-
-              <div className="flex items-center gap-1 mb-4">
-                {[...Array(t.rating)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className="h-4 w-4 fill-amber-400 text-amber-400"
-                  />
-                ))}
-              </div>
-
-              <blockquote className="text-sm leading-relaxed text-foreground">
-                &ldquo;{t.quote}&rdquo;
-              </blockquote>
-
-              <div className="mt-5 flex items-center gap-3 border-t border-border/50 pt-5">
-                <img
-                  src={t.avatar}
-                  alt={t.author}
-                  className="h-11 w-11 rounded-full object-cover"
-                  loading="lazy"
+        <div className="faq-item mt-12 divide-y divide-border/50 border-t border-border/50">
+          {faqs.map((faq, i) => (
+            <div key={i} className="faq-item">
+              <button
+                onClick={() => toggle(i)}
+                className="flex w-full cursor-pointer items-center justify-between gap-4 py-5 text-left"
+              >
+                <span className="text-sm font-semibold text-foreground">
+                  {faq.question}
+                </span>
+                <ChevronDown
+                  className={`h-4 w-4 shrink-0 cursor-pointer text-muted-foreground transition-transform duration-300 ${
+                    openIndex === i ? "rotate-180" : ""
+                  }`}
                 />
-                <div className="flex-1">
-                  <p className="text-sm font-semibold">{t.author}</p>
-                  <p className="text-xs text-muted-foreground">
-                    {t.role} — {t.city}
-                  </p>
-                </div>
-                <div className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
-                  {t.result}
-                </div>
+              </button>
+              <div
+                className={`overflow-hidden transition-all duration-300 ${
+                  openIndex === i ? "max-h-40 pb-5" : "max-h-0"
+                }`}
+              >
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {faq.answer}
+                </p>
               </div>
             </div>
           ))}

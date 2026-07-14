@@ -6,7 +6,7 @@ import { List, X } from "lucide-react";
 import ThemeToggle from "@/components/shared/ThemeToggle";
 
 const navLinks = [
-  { label: "Servicos", href: "#servicos" },
+  { label: "Serviços", href: "#servicos" },
   { label: "Resultados", href: "#resultados" },
   { label: "Como funciona", href: "#como-funciona" },
 ];
@@ -57,7 +57,7 @@ export default function Navbar() {
         }`}
       >
         <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 lg:px-8">
-          <a href="#" className="nav-brand text-lg font-bold tracking-tight">
+          <a href="#" className="nav-brand text-lg font-bold tracking-[-0.03em]" style={{ fontFamily: "var(--font-display), sans-serif" }}>
             AGENCIA<span className="text-accent">.</span>
           </a>
 
@@ -80,7 +80,7 @@ export default function Navbar() {
               href="#contato"
               className="hidden rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground transition-all hover:scale-[1.03] hover:shadow-lg hover:shadow-primary/20 md:inline-flex"
             >
-              Fale com gente
+            Fale com a gente
             </a>
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
@@ -99,7 +99,7 @@ export default function Navbar() {
         id="mobile-menu"
         role="dialog"
         aria-modal="true"
-        aria-label="Menu de navegacao"
+        aria-label="Menu de navegação"
         className={`fixed inset-0 z-40 bg-background/95 backdrop-blur-xl transition-all duration-300 md:hidden ${
           mobileOpen
             ? "opacity-100 pointer-events-auto"
@@ -112,8 +112,8 @@ export default function Navbar() {
               key={link.href}
               href={link.href}
               onClick={closeMobile}
-              className="text-3xl font-bold tracking-tight transition-colors hover:text-primary"
-              style={{ transitionDelay: `${i * 60}ms` }}
+              className="text-3xl font-bold tracking-[-0.03em] transition-colors hover:text-primary"
+              style={{ fontFamily: "var(--font-display), sans-serif", transitionDelay: `${i * 60}ms` }}
             >
               {link.label}
             </a>
@@ -123,7 +123,7 @@ export default function Navbar() {
             onClick={closeMobile}
             className="mt-4 rounded-full bg-primary px-8 py-3.5 text-base font-semibold text-primary-foreground"
           >
-            Fale com gente
+            Fale com a gente
           </a>
         </div>
       </div>

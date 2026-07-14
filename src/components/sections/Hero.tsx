@@ -3,8 +3,9 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
 import BrowserSvg from "@/components/shared/BrowserSvg";
+import MagneticButton from "@/components/shared/MagneticButton";
+import { splitWordsIntoSpans } from "@/lib/animations/text-split";
 import {
   ArrowRight,
   ShieldCheck,
@@ -18,7 +19,7 @@ import {
 } from "lucide-react";
 
 if (typeof window !== "undefined") {
-  gsap.registerPlugin(DrawSVGPlugin);
+  gsap.registerPlugin(ScrollTrigger);
 }
 
 export default function Hero() {
@@ -28,6 +29,16 @@ export default function Hero() {
     if (!ref.current) return;
 
     const ctx = gsap.context(() => {
+      const titleLines = ref.current?.querySelectorAll(".hero-line-split");
+      const allSpans: HTMLElement[] = [];
+
+      titleLines?.forEach((line) => {
+        const spans = splitWordsIntoSpans(line as HTMLElement);
+        allSpans.push(...spans);
+      });
+
+      gsap.set(allSpans, { y: 80, opacity: 0, rotateX: -40 });
+
       const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
 
       tl.fromTo(
@@ -35,10 +46,9 @@ export default function Hero() {
         { clipPath: "inset(0 100% 0 0)" },
         { clipPath: "inset(0 0% 0 0)", duration: 0.7 },
       )
-        .fromTo(
-          ".hero-line",
-          { y: 80, opacity: 0 },
-          { y: 0, opacity: 1, duration: 1, stagger: 0.08 },
+        .to(
+          allSpans,
+          { y: 0, opacity: 1, rotateX: 0, duration: 1, stagger: 0.025 },
           "-=0.3",
         )
         .fromTo(
@@ -88,18 +98,18 @@ export default function Hero() {
       const drawLoop = gsap.timeline({ repeat: -1, delay: 1.5 });
 
       drawLoop
-        .set(drawElements, { drawSVG: "0% 0%" })
-        .to(".draw-browser-frame", { drawSVG: "0% 100%", duration: 0.8, ease: "power2.inOut" })
-        .to(".draw-browser-bar", { drawSVG: "0% 100%", duration: 0.3, ease: "power1.out" }, "-=0.25")
-        .to(".draw-browser-address", { drawSVG: "0% 100%", duration: 0.3, ease: "power1.out" }, "-=0.1")
-        .to(".draw-browser-dot", { drawSVG: "0% 100%", duration: 0.2, stagger: 0.04, ease: "power1.out" }, "-=0.1")
-        .to(".draw-content-line", { drawSVG: "0% 100%", duration: 0.35, stagger: 0.025, ease: "power1.out" }, "-=0.05")
-        .to(".draw-content-btn", { drawSVG: "0% 100%", duration: 0.25, ease: "power1.out" }, "-=0.15")
-        .to(".draw-content-image", { drawSVG: "0% 100%", duration: 0.35, ease: "power2.inOut" }, "-=0.2")
-        .to(".draw-content-img-line", { drawSVG: "0% 100%", duration: 0.2, stagger: 0.03, ease: "power1.out" }, "-=0.1")
-        .to(".draw-content-card", { drawSVG: "0% 100%", duration: 0.2, stagger: 0.04, ease: "power1.out" }, "-=0.05")
-        .to(drawElements, { drawSVG: "100% 100%", duration: 0.6, stagger: 0.015, ease: "power2.in" })
-        .set(drawElements, { drawSVG: "0% 0%" });
+        .set(drawElements, { strokeDashoffset: 1 })
+        .to(".draw-browser-frame", { strokeDashoffset: 0, duration: 0.8, ease: "power2.inOut" })
+        .to(".draw-browser-bar", { strokeDashoffset: 0, duration: 0.3, ease: "power1.out" }, "-=0.25")
+        .to(".draw-browser-address", { strokeDashoffset: 0, duration: 0.3, ease: "power1.out" }, "-=0.1")
+        .to(".draw-browser-dot", { strokeDashoffset: 0, duration: 0.2, stagger: 0.04, ease: "power1.out" }, "-=0.1")
+        .to(".draw-content-line", { strokeDashoffset: 0, duration: 0.35, stagger: 0.025, ease: "power1.out" }, "-=0.05")
+        .to(".draw-content-btn", { strokeDashoffset: 0, duration: 0.25, ease: "power1.out" }, "-=0.15")
+        .to(".draw-content-image", { strokeDashoffset: 0, duration: 0.35, ease: "power2.inOut" }, "-=0.2")
+        .to(".draw-content-img-line", { strokeDashoffset: 0, duration: 0.2, stagger: 0.03, ease: "power1.out" }, "-=0.1")
+        .to(".draw-content-card", { strokeDashoffset: 0, duration: 0.2, stagger: 0.04, ease: "power1.out" }, "-=0.05")
+        .to(drawElements, { strokeDashoffset: 1, duration: 0.6, stagger: 0.015, ease: "power2.in" })
+        .set(drawElements, { strokeDashoffset: 1 });
 
       gsap.fromTo(
         ".hero-float",
@@ -210,53 +220,58 @@ export default function Hero() {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,var(--color-primary)_/_0.05,transparent)]" />
 
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-12 min-h-[100dvh] pb-20 pt-24 lg:pb-24">
+        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-24 min-h-[100dvh] pb-20 pt-24 lg:pb-24">
           {/* Text */}
-          <div className="flex-1 max-w-2xl">
+          <div className="flex-1 max-w-2xl lg:max-w-3xl">
             <div className="hero-eyebrow mb-6 inline-flex items-center gap-2.5 text-xs font-semibold tracking-widest uppercase text-primary">
               <span className="w-6 h-px bg-primary" />
               Agencia digital para PMEs
             </div>
 
-            <h1 className="overflow-hidden">
-              <span className="hero-line block text-5xl sm:text-6xl md:text-7xl lg:text-[4.5rem] font-bold tracking-[-0.03em] leading-[0.95]">
-                Sua empresa merece
+            <h1 className="relative">
+              <span className="hero-line hero-line-split block text-[1.75rem] sm:text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold tracking-[-0.03em] leading-[1.05]" style={{ fontFamily: "var(--font-display), sans-serif" }}>
+                Seu negócio precisa de
               </span>
-              <span className="hero-line block text-5xl sm:text-6xl md:text-7xl lg:text-[4.5rem] font-bold tracking-[-0.03em] leading-[0.95] text-primary">
-                mais que um site generico
+              <span className="hero-line hero-line-split block text-[1.75rem] sm:text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-bold tracking-[-0.03em] leading-[1.05] text-primary" style={{ fontFamily: "var(--font-display), sans-serif" }}>
+                landpage que vende
               </span>
             </h1>
 
-            <p className="hero-sub mt-8 max-w-xl text-base md:text-lg text-muted-foreground leading-relaxed">
-              Criamos landpages que convertem e sistemas que simplificam. Sem
-              template. Sem enrolacao. Resultado em 30 dias ou seu dinheiro de
-              volta.
+            <p className="hero-sub mt-8 md:mt-10 max-w-xl text-base md:text-lg text-muted-foreground leading-relaxed">
+              Tá perdendo cliente por não ter presença online? Criamos
+              landpages que convertem visitantes em vendas e sistemas que
+              automatizam o que dá trabalho. Resultado em 30 dias ou
+              devolvemos seu dinheiro.
             </p>
 
-            <div className="hero-cta mt-10 flex flex-wrap items-center gap-4">
-              <a
-                href="#contato"
-                className="inline-flex items-center gap-2.5 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground transition-all hover:scale-[1.03] hover:shadow-lg hover:shadow-primary/25 active:scale-[0.98]"
-              >
-                Comecar agora
-                <ArrowRight className="h-4 w-4" />
-              </a>
-              <a
-                href="#resultados"
-                className="inline-flex items-center gap-2 rounded-full border border-border px-7 py-3.5 text-sm font-semibold transition-colors hover:bg-muted/50"
-              >
-                Ver resultados
-              </a>
+            <div className="hero-cta mt-10 md:mt-12 flex flex-wrap items-center gap-4">
+              <MagneticButton strength={0.2}>
+                <a
+                  href="#contato"
+                  className="inline-flex items-center gap-2.5 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground transition-all hover:scale-[1.03] hover:shadow-lg hover:shadow-primary/25 active:scale-[0.98]"
+                >
+                  Quero meu site
+                  <ArrowRight className="h-4 w-4" />
+                </a>
+              </MagneticButton>
+              <MagneticButton strength={0.2}>
+                <a
+                  href="#resultados"
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-7 py-3.5 text-sm font-semibold transition-colors hover:bg-muted/50"
+                >
+                  Ver cases de sucesso
+                </a>
+              </MagneticButton>
             </div>
 
-            <div className="hero-proof mt-14 flex flex-wrap items-center gap-x-8 gap-y-3 text-xs text-muted-foreground">
+            <div className="hero-proof mt-14 md:mt-16 flex flex-wrap items-center gap-x-8 gap-y-3 text-xs text-muted-foreground">
               <div className="flex items-center gap-2">
                 <ShieldCheck className="h-4 w-4 text-primary" />
-                <span>200+ PMEs atendidas</span>
+                <span>Garantia de 30 dias</span>
               </div>
               <div className="flex items-center gap-2">
                 <Clock className="h-4 w-4 text-primary" />
-                <span>Garantia de 30 dias</span>
+                <span>Entrega em 30 dias</span>
               </div>
               <div className="flex items-center gap-2">
                 <CreditCard className="h-4 w-4 text-primary" />
@@ -283,7 +298,7 @@ export default function Hero() {
               </div>
               <div>
                 <p className="text-sm font-bold leading-none tracking-tight">+340%</p>
-                <p className="text-[10px] text-muted-foreground mt-0.5">conversao</p>
+                <p className="text-[10px] text-muted-foreground mt-0.5">aumento em vendas</p>
               </div>
             </div>
 
