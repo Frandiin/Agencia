@@ -1,36 +1,105 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Agencia — Landing Page para PMEs
 
-## Getting Started
+Site institucional de agência digital focada em pequenas e médias empresas. landpages que convertem visitantes em clientes e sistemas sob medida que automatizam processos.
 
-First, run the development server:
+## Funcionalidades
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Hero animado** — texto revelado palavra por palavra com GSAP + efeito 3D rotateX
+- **MagneticButton** — botões que seguem o cursor no hover
+- **Contadores animados** — números que contam ao entrar no viewport (CountUp)
+- **Cards com flip** — serviços com frente/verso, clique no mobile com botão "Ver mais"
+- **Seção Before/After** — wireframes SVG com animação de desenho
+- **Preview Generator** — formulário que gera preview ao vivo de landpage com 5 layouts por nicho (Restaurante, Clínica, Loja, Studio, Genérico)
+- **FAQ interativo** — accordion com animação
+- **WhatsApp FAB** — botão flutuante com link direto
+- **Smooth scroll** — lenis + GSAP ScrollTrigger
+- **SEO completo** — sitemap, robots.txt, OpenGraph, Twitter Cards, schema.org JSON-LD
+- **Acessibilidade** — aria-labelledby, focus-visible, prefers-reduced-motion
+- **Dark mode** — toggle com next-themes
+
+## Tech Stack
+
+| Tecnologia | Uso |
+|---|---|
+| Next.js 16 | Framework React (App Router) |
+| TypeScript | Tipagem estática |
+| Tailwind CSS 4 | Estilização |
+| GSAP | Animações (ScrollTrigger, DrawSVG nativo) |
+| lenis | Smooth scroll |
+| shadcn/ui | Componentes base |
+| Lucide React | Ícones |
+| pnpm | Gerenciador de pacotes |
+
+## Tipografia
+
+| Fonte | Papel |
+|---|---|
+| Space Grotesk | Headings, brand, números de destaque |
+| Geist Sans | Body text, botões, badges |
+
+## Estrutura do Projeto
+
+```
+src/
+├── app/
+│   ├── layout.tsx          # Layout raiz, metadata, JSON-LD
+│   ├── page.tsx            # Server Component wrapper
+│   ├── globals.css         # Tema, variáveis CSS, estilos base
+│   └── sitemap.ts          # Sitemap dinâmico
+├── components/
+│   ├── layout/
+│   │   ├── Navbar.tsx      # Navegação fixa + menu mobile
+│   │   └── Footer.tsx      # Rodapé com links e contato
+│   ├── sections/
+│   │   ├── Hero.tsx        # Hero com animação de texto
+│   │   ├── Services.tsx    # Cards de serviço com flip
+│   │   ├── BeforeAfter.tsx # Comparação antes/depois
+│   │   ├── About.tsx       # Sobre a agência
+│   │   ├── Results.tsx     # Métricas com CountUp
+│   │   ├── HowItWorks.tsx  # Passo a passo
+│   │   ├── PreviewGenerator.tsx # Gerador de preview
+│   │   ├── Testimonials.tsx # FAQ accordion
+│   │   └── CTA.tsx         # Chamada para ação final
+│   └── shared/
+│       ├── BrowserSvg.tsx   # SVG animado do browser
+│       ├── CountUp.tsx      # Contador animado
+│       ├── MagneticButton.tsx # Botão magnético
+│       ├── SitePreview.tsx  # Preview de landpage
+│       ├── WhatsAppFAB.tsx  # Botão flutuante WhatsApp
+│       └── Intro.tsx        # Tela de loading
+├── hooks/
+│   └── useSmoothScroll.ts  # Hook lenis + ScrollTrigger
+└── lib/
+    └── animations/
+        ├── gsap-config.ts   # Registro centralizado do GSAP
+        ├── text-split.ts    # Split de texto para animação
+        ├── fade-in.ts       # Animação de entrada
+        ├── parallax.ts      # Efeito parallax
+        └── sticky.ts        # Scroll sticky
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Como Rodar
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+# Instalar dependências
+pnpm install
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Iniciar servidor de desenvolvimento
+pnpm dev
 
-## Learn More
+# Build de produção
+pnpm build
 
-To learn more about Next.js, take a look at the following resources:
+# Iniciar produção
+pnpm start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Acesse [http://localhost:3000](http://localhost:3000).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deploy
 
-## Deploy on Vercel
+O projeto está configurado para deploy na Vercel. Basta conectar o repositório GitHub e o deploy será automático.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Contato
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- WhatsApp: (11) 95839-4250
