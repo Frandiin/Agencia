@@ -6,20 +6,23 @@ import "./globals.css";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  preload: false,
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  preload: false,
 });
 
 const spaceGrotesk = Space_Grotesk({
-  variable: "--font-display",
+  variable: "--font-space-grotesk",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://seudominio.com.br"),
   title: "Landpages e Sistemas para PMEs | Agencia",
   description:
     "Criamos landpages que convertem visitantes em clientes e sistemas que automatizam o que dá trabalho. Resultado em 30 dias ou devolvemos seu dinheiro.",

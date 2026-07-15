@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SitePreview from "@/components/shared/SitePreview";
 import MagneticButton from "@/components/shared/MagneticButton";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, Maximize2, X } from "lucide-react";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -91,6 +91,16 @@ export default function PreviewGenerator() {
   const [slogan, setSlogan] = useState("");
   const [color, setColor] = useState("#0d9488");
   const [whatsapp, setWhatsapp] = useState("");
+  const [fullscreen, setFullscreen] = useState(false);
+
+  useEffect(() => {
+    if (fullscreen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [fullscreen]);
 
   useEffect(() => {
     if (!ref.current) return;
@@ -163,6 +173,7 @@ export default function PreviewGenerator() {
   const content = businessContent[businessType] || businessContent.Outro;
 
   return (
+    <>
     <section ref={ref} className="py-24 md:py-32 bg-muted/30 overflow-hidden">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="pg-header text-center mb-16">
@@ -292,19 +303,46 @@ export default function PreviewGenerator() {
           </div>
 
           {/* Preview */}
-          <div className="pg-preview lg:sticky lg:top-28">
-            <SitePreview
-              businessName={businessName}
-              businessType={businessType}
-              slogan={slogan}
-              color={color}
-              services={content.services}
-              proofBadges={content.proof}
-              extras={content.extras}
-            />
+          <div className="pg-preview">
+            <div className="mb-3 flex items-center justify-between">
+              <span className="text-xs font-medium text-muted-foreground">Preview do seu site</span>
+              <button
+                onClick={() => setFullscreen(true)}
+                className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1.5 text-[11px] font-medium text-muted-foreground hover:bg-muted/50 hover:text-foreground transition-all"
+              >
+                <Maximize2 className="h-3 w-3" />
+                Ver como site real
+              </button>
+            </div>
+            <div style={{ maxHeight: "70vh", overflowY: "auto", borderRadius: "1rem" }}>
+              <SitePreview
+                businessName={businessName}
+                businessType={businessType}
+                slogan={slogan}
+                color={color}
+                services={content.services}
+                proofBadges={content.proof}
+                extras={content.extras}
+              />
+            </div>
           </div>
         </div>
       </div>
     </section>
+
+    {fullscreen && (
+      <SitePreview
+        businessName={businessName}
+        businessType={businessType}
+        slogan={slogan}
+        color={color}
+        services={content.services}
+        proofBadges={content.proof}
+        extras={content.extras}
+        fullscreen
+        onCloseFullscreen={() => setFullscreen(false)}
+      />
+    )}
+    </>
   );
 }
