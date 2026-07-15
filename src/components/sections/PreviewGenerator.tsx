@@ -174,7 +174,7 @@ export default function PreviewGenerator() {
 
   return (
     <>
-    <section ref={ref} className="py-24 md:py-32 bg-muted/30 overflow-hidden">
+    <section ref={ref} className="py-24 md:py-32 bg-muted/30 overflow-x-hidden">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="pg-header text-center mb-16">
           <div className="mb-4 inline-flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-primary">
@@ -314,7 +314,11 @@ export default function PreviewGenerator() {
                 Ver como site real
               </button>
             </div>
-            <div style={{ maxHeight: "70vh", overflowY: "auto", borderRadius: "1rem" }}>
+            <div
+              className="max-h-[70vh] overflow-y-auto rounded-2xl overscroll-contain"
+              onWheel={(e) => e.stopPropagation()}
+              onTouchMove={(e) => e.stopPropagation()}
+            >
               <SitePreview
                 businessName={businessName}
                 businessType={businessType}
