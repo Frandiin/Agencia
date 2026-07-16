@@ -92,7 +92,7 @@ export default function LojaPreview({ name, slogan, color, proofBadges, extras }
 
       {/* ═══ VANTAGENS ═══ */}
       <div className="px-4 @md:px-8 @lg:px-12 py-5 @md:py-8 @lg:py-12 bg-gray-50 dark:bg-gray-900/50">
-        <div className="grid grid-cols-3 @md:grid-cols-3 @lg:grid-cols-6 gap-3 @md:gap-6 @lg:gap-8">
+        <div className="grid grid-cols-3 @md:grid-cols-3 @lg:grid-cols-3 gap-3 @md:gap-6 @lg:gap-8">
           {[
             { icon: <Truck className="h-4 w-4 @md:h-6 @md:w-6 @lg:h-7 @lg:w-7" />, title: freteGratis || "Frete Grátis", desc: "Acima de R$99" },
             { icon: <Shield className="h-4 w-4 @md:h-6 @md:w-6 @lg:h-7 @lg:w-7" />, title: "Compra Segura", desc: "Pagamento protegido" },

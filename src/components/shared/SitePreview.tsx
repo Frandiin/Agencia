@@ -1,12 +1,14 @@
 "use client";
 
-import { useRef, useCallback } from "react";
+import { useRef, useEffect, useState } from "react";
 import BrowserChrome from "./previews/BrowserChrome";
 import RestaurantePreview from "./previews/RestaurantePreview";
 import ClinicaPreview from "./previews/ClinicaPreview";
 import LojaPreview from "./previews/LojaPreview";
 import StudioPreview from "./previews/StudioPreview";
 import GenericoPreview from "./previews/GenericoPreview";
+
+const PREVIEW_BASE_WIDTH = 1200;
 
 interface SitePreviewProps {
   businessName: string;
@@ -31,8 +33,10 @@ export default function SitePreview({
   fullscreen,
   onCloseFullscreen,
 }: SitePreviewProps) {
-
-
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
+  const [contentHeight, setContentHeight] = useState(0);
 
   const displayName = businessName || "Seu Negócio";
   const displaySlogan = slogan || "Soluções que geram resultado para o seu negócio";
@@ -51,6 +55,26 @@ export default function SitePreview({
         return <GenericoPreview name={displayName} slogan={displaySlogan} color={color} services={services} proofBadges={proofBadges} />;
     }
   };
+
+  useEffect(() => {
+    if (fullscreen) return;
+
+    const updateScale = () => {
+      if (!wrapperRef.current || !contentRef.current) return;
+      const wrapperWidth = wrapperRef.current.clientWidth;
+      const newScale = wrapperWidth / PREVIEW_BASE_WIDTH;
+      setScale(newScale);
+      const height = contentRef.current.scrollHeight;
+      setContentHeight(Math.ceil(height * newScale));
+    };
+
+    updateScale();
+
+    const observer = new ResizeObserver(updateScale);
+    if (wrapperRef.current) observer.observe(wrapperRef.current);
+
+    return () => observer.disconnect();
+  }, [fullscreen, businessName, businessType, slogan, color, services, proofBadges, extras]);
 
   if (fullscreen) {
     return (
@@ -92,11 +116,22 @@ export default function SitePreview({
       }}
     >
       <div
-        className="rounded-2xl bg-white dark:bg-gray-950 transition-transform duration-200 ease-out"
+        className="rounded-2xl bg-white dark:bg-gray-950 transition-transform duration-200 ease-out overflow-hidden"
         style={{ border: `1px solid ${color}20` }}
       >
         <BrowserChrome name={displayName} />
-        {renderPreview()}
+        <div ref={wrapperRef} className="overflow-hidden" style={{ height: contentHeight || "auto" }}>
+          <div
+            ref={contentRef}
+            style={{
+              width: PREVIEW_BASE_WIDTH,
+              transform: `scale(${scale})`,
+              transformOrigin: "top left",
+            }}
+          >
+            {renderPreview()}
+          </div>
+        </div>
       </div>
     </div>
   );

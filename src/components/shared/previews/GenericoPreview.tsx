@@ -77,7 +77,7 @@ export default function GenericoPreview({ name, slogan, color, services, proofBa
           <span className="text-[10px] @md:text-xs @lg:text-sm font-bold uppercase tracking-widest" style={{ color }}>Serviços</span>
           <h2 className="text-lg @md:text-2xl @lg:text-3xl font-bold tracking-tight mt-1">O que oferecemos</h2>
         </div>
-        <div className="grid grid-cols-3 @lg:grid-cols-6 gap-2 @md:gap-4 @lg:gap-5">
+        <div className="grid grid-cols-3 @lg:grid-cols-3 gap-2 @md:gap-4 @lg:gap-5">
           {services.map((svc, i) => (
             <div key={i} className="group rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-3 @md:p-4 @lg:p-6 text-center hover:shadow-md transition-all cursor-pointer">
               <div className="mx-auto mb-2 @md:mb-3 @lg:mb-4 h-10 w-10 @md:h-14 @md:w-14 @lg:h-16 @lg:w-16 rounded-full flex items-center justify-center" style={{ backgroundColor: `${color}12`, color }}>
