@@ -85,7 +85,7 @@ export default function Inspirations() {
   return (
     <section
       ref={sectionRef}
-      className="relative h-screen overflow-hidden bg-background"
+      className="relative h-screen overflow-hidden overflow-x-hidden bg-background"
     >
       <div className="absolute top-0 left-0 right-0 z-10 pt-12 md:pt-16 pb-8 px-5 lg:px-8 bg-gradient-to-b from-background via-background to-transparent pointer-events-none">
         <div className="mx-auto max-w-6xl">

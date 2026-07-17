@@ -42,7 +42,7 @@ export default function MagneticButton({
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className={className}
+      className={`overflow-hidden ${className}`}
     >
       {children}
     </div>

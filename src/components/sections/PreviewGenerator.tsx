@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SitePreview from "@/components/shared/SitePreview";
 import MagneticButton from "@/components/shared/MagneticButton";
-import { ArrowRight, Sparkles, Maximize2, X } from "lucide-react";
+import { ArrowRight, Sparkles, Maximize2 } from "lucide-react";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -334,7 +335,7 @@ export default function PreviewGenerator() {
       </div>
     </section>
 
-    {fullscreen && (
+    {fullscreen && createPortal(
       <SitePreview
         businessName={businessName}
         businessType={businessType}
@@ -345,7 +346,8 @@ export default function PreviewGenerator() {
         extras={content.extras}
         fullscreen
         onCloseFullscreen={() => setFullscreen(false)}
-      />
+      />,
+      document.body
     )}
     </>
   );

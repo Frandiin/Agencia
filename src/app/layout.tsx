@@ -90,7 +90,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-dvh">
+      <body className="min-h-dvh overflow-x-hidden">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           {children}
         </ThemeProvider>

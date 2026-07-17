@@ -81,7 +81,7 @@ export default function Services() {
   };
 
   return (
-    <section ref={ref} id="servicos" aria-labelledby="servicos-title" className="py-24 md:py-32">
+    <section ref={ref} id="servicos" aria-labelledby="servicos-title" className="py-24 md:py-32 overflow-hidden">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="svc-item mb-16 max-w-2xl">
           <h2 id="servicos-title" style={{ fontFamily: "var(--font-display), sans-serif" }} className="text-3xl md:text-5xl font-bold tracking-[-0.03em] leading-tight">
