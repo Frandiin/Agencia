@@ -46,7 +46,7 @@ export default function RestaurantePreview({ name, slogan, color, proofBadges, e
 
     const timer = setTimeout(() => {
       setShowSplash(false);
-    }, 1800);
+    }, 500);
 
     const ctx = gsap.context(() => {
       // Splash reveal
@@ -70,93 +70,93 @@ export default function RestaurantePreview({ name, slogan, color, proofBadges, e
       gsap.fromTo(
         ".hero-eyebrow",
         { clipPath: "inset(0 100% 0 0)" },
-        { clipPath: "inset(0 0% 0 0)", duration: 0.6, ease: "power2.out", delay: 2 }
+        { clipPath: "inset(0 0% 0 0)", duration: 0.6, ease: "power2.out", delay: 0.6 }
       );
 
       // Title with 3D rotateX
       gsap.fromTo(
         ".hero-title-3d",
         { y: 50, opacity: 0, rotateX: -40 },
-        { y: 0, opacity: 1, rotateX: 0, duration: 0.9, ease: "power4.out", delay: 2.1 }
+        { y: 0, opacity: 1, rotateX: 0, duration: 0.9, ease: "power4.out", delay: 0.7 }
       );
 
       gsap.fromTo(
         ".hero-sub",
         { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.6, ease: "power3.out", delay: 2.4 }
+        { opacity: 1, y: 0, duration: 0.6, ease: "power3.out", delay: 1 }
       );
 
       gsap.fromTo(
         ".hero-cta",
         { opacity: 0, y: 16 },
-        { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: "power3.out", delay: 2.6 }
+        { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: "power3.out", delay: 1.2 }
       );
 
       gsap.fromTo(
         ".hero-trust",
         { opacity: 0 },
-        { opacity: 1, duration: 0.6, delay: 2.9 }
+        { opacity: 1, duration: 0.6, delay: 1.5 }
       );
 
       // Stats animation
       gsap.fromTo(
         ".stat-item",
         { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: "power3.out", delay: 3.1 }
+        { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: "power3.out", delay: 1.7 }
       );
 
       // Menu cards
       gsap.fromTo(
         ".menu-card",
         { y: 30, opacity: 0, scale: 0.95 },
-        { y: 0, opacity: 1, scale: 1, duration: 0.5, stagger: 0.08, ease: "power3.out", delay: 3.3 }
+        { y: 0, opacity: 1, scale: 1, duration: 0.5, stagger: 0.08, ease: "power3.out", delay: 1.9 }
       );
 
       // Steps
       gsap.fromTo(
         ".step-item",
         { y: 30, opacity: 0, scale: 0.95 },
-        { y: 0, opacity: 1, scale: 1, duration: 0.6, stagger: 0.15, ease: "power3.out", delay: 3.5 }
+        { y: 0, opacity: 1, scale: 1, duration: 0.6, stagger: 0.15, ease: "power3.out", delay: 2.1 }
       );
 
       // Step numbers pop
       gsap.fromTo(
         ".step-num",
         { scale: 0, rotation: -45 },
-        { scale: 1, rotation: 0, duration: 0.6, stagger: 0.15, ease: "back.out(2)", delay: 3.6 }
+        { scale: 1, rotation: 0, duration: 0.6, stagger: 0.15, ease: "back.out(2)", delay: 2.2 }
       );
 
       // Testimonials
       gsap.fromTo(
         ".dep-card",
         { y: 24, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.5, stagger: 0.12, ease: "power3.out", delay: 3.8 }
+        { y: 0, opacity: 1, duration: 0.5, stagger: 0.12, ease: "power3.out", delay: 2.4 }
       );
 
       // CTA with 3D
       gsap.fromTo(
         ".cta-title-3d",
         { y: 40, opacity: 0, rotateX: -30 },
-        { y: 0, opacity: 1, rotateX: 0, duration: 0.8, ease: "power4.out", delay: 4 }
+        { y: 0, opacity: 1, rotateX: 0, duration: 0.8, ease: "power4.out", delay: 2.6 }
       );
 
       gsap.fromTo(
         ".cta-sub",
         { opacity: 0, y: 16 },
-        { opacity: 1, y: 0, duration: 0.6, delay: 4.2 }
+        { opacity: 1, y: 0, duration: 0.6, delay: 2.8 }
       );
 
       gsap.fromTo(
         ".cta-btn",
         { opacity: 0, y: 12 },
-        { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, delay: 4.4 }
+        { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, delay: 3 }
       );
 
       // Restaurant SVG
       gsap.fromTo(
         ".restaurant-visual",
         { opacity: 0, scale: 0.92, y: 20 },
-        { opacity: 1, scale: 1, y: 0, duration: 1, ease: "power3.out", delay: 2.3 }
+        { opacity: 1, scale: 1, y: 0, duration: 1, ease: "power3.out", delay: 0.9 }
       );
 
       // SVG draw animation
@@ -165,7 +165,7 @@ export default function RestaurantePreview({ name, slogan, color, proofBadges, e
         gsap.fromTo(
           el,
           { opacity: 0 },
-          { opacity: parseFloat(el.getAttribute("opacity") || "1"), duration: 0.4, delay: 2.5 + Math.random() * 0.8 }
+          { opacity: parseFloat(el.getAttribute("opacity") || "1"), duration: 0.4, delay: 1.1 + Math.random() * 0.8 }
         );
       });
 
@@ -200,9 +200,9 @@ export default function RestaurantePreview({ name, slogan, color, proofBadges, e
           <span className="text-xs @md:text-sm @lg:text-base font-bold tracking-tight text-gray-900 dark:text-gray-100">{name}</span>
         </div>
         <div className="flex items-center gap-2 @md:gap-3 @lg:gap-5">
-          <span className="hidden @md:inline text-[10px] @md:text-xs @lg:text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 cursor-pointer">Cardápio</span>
-          <span className="hidden @md:inline text-[10px] @md:text-xs @lg:text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 cursor-pointer">Sobre</span>
-          <span className="hidden @md:inline text-[10px] @md:text-xs @lg:text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 cursor-pointer">Contato</span>
+          <span className="hidden @md:inline text-[10px] @md:text-xs @lg:text-sm text-gray-500 dark:text-gray-400" aria-hidden="true">Cardápio</span>
+          <span className="hidden @md:inline text-[10px] @md:text-xs @lg:text-sm text-gray-500 dark:text-gray-400" aria-hidden="true">Sobre</span>
+          <span className="hidden @md:inline text-[10px] @md:text-xs @lg:text-sm text-gray-500 dark:text-gray-400" aria-hidden="true">Contato</span>
           <div className="flex items-center gap-1 rounded-full px-2.5 py-1 @md:px-4 @md:py-1.5 @lg:px-5 @lg:py-2 text-[10px] @md:text-xs @lg:text-sm font-semibold text-white" style={{ backgroundColor: "#25D366" }}>
             <Phone className="h-3 w-3 @md:h-4 @md:w-4 @lg:h-5 @lg:w-5" /> Pedir
           </div>
@@ -216,7 +216,7 @@ export default function RestaurantePreview({ name, slogan, color, proofBadges, e
         <div className="relative flex flex-col @md:flex-row @md:items-center @md:gap-6 @lg:gap-10">
           {/* Text — 50% */}
           <div className="flex-1 min-w-0">
-            <div className="hero-eyebrow inline-flex items-center gap-2 mb-4 @md:mb-5 @lg:mb-6 text-[10px] @md:text-xs @lg:text-sm font-semibold tracking-widest uppercase" style={{ color }}>
+            <div className="hero-eyebrow inline-flex items-center gap-2 mb-4 @md:mb-5 @lg:mb-6 text-[10px] @md:text-xs @lg:text-sm font-semibold" style={{ color }}>
               <span className="w-6 h-px" style={{ backgroundColor: color }} />
               {horario} · Aberto agora
             </div>
@@ -300,7 +300,7 @@ export default function RestaurantePreview({ name, slogan, color, proofBadges, e
       {/* ═══ CARDÁPIO ═══ */}
       <div className="px-5 @md:px-8 @lg:px-12 py-8 @md:py-12 @lg:py-16">
         <div className="mb-6 @md:mb-8 @lg:mb-10">
-          <div className="inline-flex items-center gap-2 mb-3 @md:mb-4 @lg:mb-5 text-[10px] @md:text-xs @lg:text-sm font-semibold tracking-widest uppercase" style={{ color }}>
+          <div className="inline-flex items-center gap-2 mb-3 @md:mb-4 @lg:mb-5 text-[10px] @md:text-xs @lg:text-sm font-semibold" style={{ color }}>
             <span className="w-6 h-px" style={{ backgroundColor: color }} />
             Nosso Cardápio
           </div>
@@ -317,9 +317,8 @@ export default function RestaurantePreview({ name, slogan, color, proofBadges, e
               </div>
               <div className="text-[11px] @md:text-sm @lg:text-base font-semibold">{item.nome}</div>
               <div className="text-[9px] @md:text-xs @lg:text-sm text-gray-500 dark:text-gray-400 mt-0.5">{item.desc}</div>
-              <div className="flex items-center justify-between mt-2 @md:mt-3">
-                <div className="text-[9px] @md:text-xs @lg:text-sm text-gray-400 line-through">R$ {item.preco}</div>
-                <div className="text-xs @md:text-sm @lg:text-base font-bold" style={{ color }}>R$ {(parseFloat(item.preco) * 0.7).toFixed(0)},90</div>
+              <div className="mt-2 @md:mt-3">
+                <div className="text-xs @md:text-sm @lg:text-base font-bold" style={{ color }}>R$ {item.preco}</div>
               </div>
             </div>
           ))}
@@ -329,7 +328,7 @@ export default function RestaurantePreview({ name, slogan, color, proofBadges, e
       {/* ═══ COMO FUNCIONA ═══ */}
       <div className="px-5 @md:px-8 @lg:px-12 py-8 @md:py-12 @lg:py-16 bg-gray-50 dark:bg-gray-900/50">
         <div className="mb-6 @md:mb-8 @lg:mb-10">
-          <div className="inline-flex items-center gap-2 mb-3 @md:mb-4 @lg:mb-5 text-[10px] @md:text-xs @lg:text-sm font-semibold tracking-widest uppercase" style={{ color }}>
+          <div className="inline-flex items-center gap-2 mb-3 @md:mb-4 @lg:mb-5 text-[10px] @md:text-xs @lg:text-sm font-semibold" style={{ color }}>
             <span className="w-6 h-px" style={{ backgroundColor: color }} />
             Como Funciona
           </div>
@@ -358,7 +357,7 @@ export default function RestaurantePreview({ name, slogan, color, proofBadges, e
       {/* ═══ ESPECIALIDADES ═══ */}
       <div className="px-5 @md:px-8 @lg:px-12 py-8 @md:py-12 @lg:py-16">
         <div className="mb-6 @md:mb-8 @lg:mb-10">
-          <div className="inline-flex items-center gap-2 mb-3 @md:mb-4 @lg:mb-5 text-[10px] @md:text-xs @lg:text-sm font-semibold tracking-widest uppercase" style={{ color }}>
+          <div className="inline-flex items-center gap-2 mb-3 @md:mb-4 @lg:mb-5 text-[10px] @md:text-xs @lg:text-sm font-semibold" style={{ color }}>
             <span className="w-6 h-px" style={{ backgroundColor: color }} />
             Nossos Diferenciais
           </div>
@@ -390,7 +389,7 @@ export default function RestaurantePreview({ name, slogan, color, proofBadges, e
       {/* ═══ DEPOIMENTOS ═══ */}
       <div className="px-5 @md:px-8 @lg:px-12 py-8 @md:py-12 @lg:py-16 bg-gray-50 dark:bg-gray-900/50">
         <div className="mb-6 @md:mb-8 @lg:mb-10">
-          <div className="inline-flex items-center gap-2 mb-3 @md:mb-4 @lg:mb-5 text-[10px] @md:text-xs @lg:text-sm font-semibold tracking-widest uppercase" style={{ color }}>
+          <div className="inline-flex items-center gap-2 mb-3 @md:mb-4 @lg:mb-5 text-[10px] @md:text-xs @lg:text-sm font-semibold" style={{ color }}>
             <span className="w-6 h-px" style={{ backgroundColor: color }} />
             Depoimentos
           </div>

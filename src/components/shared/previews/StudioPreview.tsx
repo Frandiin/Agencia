@@ -32,9 +32,9 @@ export default function StudioPreview({ name, slogan, color, proofBadges, extras
           <span className="text-xs @md:text-sm @lg:text-base font-bold tracking-tight">{name}</span>
         </div>
         <div className="flex items-center gap-2 @md:gap-3 @lg:gap-5">
-          <span className="hidden @md:inline text-[10px] @md:text-xs @lg:text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 cursor-pointer">Portfólio</span>
-          <span className="hidden @md:inline text-[10px] @md:text-xs @lg:text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 cursor-pointer">Serviços</span>
-          <span className="hidden @md:inline text-[10px] @md:text-xs @lg:text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 cursor-pointer">Sobre</span>
+          <span className="hidden @md:inline text-[10px] @md:text-xs @lg:text-sm text-gray-500 dark:text-gray-400" aria-hidden="true">Portfólio</span>
+          <span className="hidden @md:inline text-[10px] @md:text-xs @lg:text-sm text-gray-500 dark:text-gray-400" aria-hidden="true">Serviços</span>
+          <span className="hidden @md:inline text-[10px] @md:text-xs @lg:text-sm text-gray-500 dark:text-gray-400" aria-hidden="true">Sobre</span>
           <div className="rounded-full px-2.5 py-1 @md:px-4 @md:py-1.5 @lg:px-5 @lg:py-2 text-[10px] @md:text-xs @lg:text-sm font-semibold text-white" style={{ backgroundColor: color }}>
             Orçamento
           </div>
@@ -82,7 +82,7 @@ export default function StudioPreview({ name, slogan, color, proofBadges, extras
       {/* ═══ PORTFÓLIO ═══ */}
       <div className="px-4 @md:px-8 @lg:px-12 py-5 @md:py-8 @lg:py-12">
         <div className="text-center mb-4 @md:mb-6 @lg:mb-8">
-          <span className="text-[10px] @md:text-xs @lg:text-sm font-bold uppercase tracking-widest" style={{ color }}>Portfólio</span>
+          <span className="text-[10px] @md:text-xs @lg:text-sm font-bold" style={{ color }}>Portfólio</span>
           <h2 className="text-lg @md:text-2xl @lg:text-3xl font-bold tracking-tight mt-1">Nossos Trabalhos</h2>
         </div>
         <div className="grid grid-cols-3 @md:grid-cols-3 @lg:grid-cols-4 gap-2 @md:gap-3 @lg:gap-4">
@@ -116,7 +116,7 @@ export default function StudioPreview({ name, slogan, color, proofBadges, extras
       {/* ═══ SERVIÇOS ═══ */}
       <div className="px-4 @md:px-8 @lg:px-12 py-5 @md:py-8 @lg:py-12 bg-gray-50 dark:bg-gray-900/50">
         <div className="text-center mb-4 @md:mb-6 @lg:mb-8">
-          <span className="text-[10px] @md:text-xs @lg:text-sm font-bold uppercase tracking-widest" style={{ color }}>Serviços</span>
+          <span className="text-[10px] @md:text-xs @lg:text-sm font-bold" style={{ color }}>Serviços</span>
           <h2 className="text-lg @md:text-2xl @lg:text-3xl font-bold tracking-tight mt-1">O que fazemos</h2>
         </div>
         <div className="grid grid-cols-2 @md:grid-cols-3 @lg:grid-cols-4 gap-2 @md:gap-4 @lg:gap-5">
@@ -140,7 +140,7 @@ export default function StudioPreview({ name, slogan, color, proofBadges, extras
       {/* ═══ PROCESSO ═══ */}
       <div className="px-4 @md:px-8 @lg:px-12 py-5 @md:py-8 @lg:py-12">
         <div className="text-center mb-4 @md:mb-6 @lg:mb-8">
-          <span className="text-[10px] @md:text-xs @lg:text-sm font-bold uppercase tracking-widest" style={{ color }}>Processo</span>
+          <span className="text-[10px] @md:text-xs @lg:text-sm font-bold" style={{ color }}>Processo</span>
           <h2 className="text-lg @md:text-2xl @lg:text-3xl font-bold tracking-tight mt-1">Como trabalhamos</h2>
         </div>
         <div className="flex gap-2 @md:gap-4 @lg:gap-8">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import gsap from "gsap";
 import ClinicSvg from "./SVG/ClinicSvg";
 import { SvgMedicos } from "./SVG/Medico";
@@ -44,106 +44,44 @@ export default function ClinicaPreview({
 
   const especialidades = (extras.especialidades as string[]) || [];
   const medicos =
-    (extras.medicos as { nome: string; especialidade: string }[]) || [];
+    (extras.medicos as { nome: string; especialidade: string; crm?: string; exp?: string }[]) || [];
 
-  const defaultEspecialidades = [
-    {
-      nome: "Clínico Geral",
-      icon: <Stethoscope className="h-5 w-5 @md:h-7 @md:w-7 @lg:h-8 @lg:w-8" />,
-      desc: "Check-up completo e prevenção",
-    },
-    {
-      nome: "Pediatria",
-      icon: <Heart className="h-5 w-5 @md:h-7 @md:w-7 @lg:h-8 @lg:w-8" />,
-      desc: "Crianças e adolescentes",
-    },
-    {
-      nome: "Dermatologia",
-      icon: <Sparkles className="h-5 w-5 @md:h-7 @md:w-7 @lg:h-8 @lg:w-8" />,
-      desc: "Pele, cabelo e estética",
-    },
-    {
-      nome: "Cardiologia",
-      icon: <Heart className="h-5 w-5 @md:h-7 @md:w-7 @lg:h-8 @lg:w-8" />,
-      desc: "Coração e vasos sanguíneos",
-    },
-    {
-      nome: "Oftalmologia",
-      icon: <Stethoscope className="h-5 w-5 @md:h-7 @md:w-7 @lg:h-8 @lg:w-8" />,
-      desc: "Saúde ocular completa",
-    },
-    {
-      nome: "Ortopedia",
-      icon: <ShieldCheck className="h-5 w-5 @md:h-7 @md:w-7 @lg:h-8 @lg:w-8" />,
-      desc: "Ossos e articulações",
-    },
-  ];
-
-  const especialidadesData =
-    especialidades.length > 0
+  const especialidadesData = useMemo(() => {
+    const iconList = [
+      <Stethoscope key={0} className="h-5 w-5 @md:h-7 @md:w-7 @lg:h-8 @lg:w-8" />,
+      <Heart key={1} className="h-5 w-5 @md:h-7 @md:w-7 @lg:h-8 @lg:w-8" />,
+      <Sparkles key={2} className="h-5 w-5 @md:h-7 @md:w-7 @lg:h-8 @lg:w-8" />,
+      <Heart key={3} className="h-5 w-5 @md:h-7 @md:w-7 @lg:h-8 @lg:w-8" />,
+      <Stethoscope key={4} className="h-5 w-5 @md:h-7 @md:w-7 @lg:h-8 @lg:w-8" />,
+      <ShieldCheck key={5} className="h-5 w-5 @md:h-7 @md:w-7 @lg:h-8 @lg:w-8" />,
+    ];
+    const defaultData = [
+      { nome: "Clínico Geral", icon: iconList[0], desc: "Check-up completo e prevenção" },
+      { nome: "Pediatria", icon: iconList[1], desc: "Crianças e adolescentes" },
+      { nome: "Dermatologia", icon: iconList[2], desc: "Pele, cabelo e estética" },
+      { nome: "Cardiologia", icon: iconList[3], desc: "Coração e vasos sanguíneos" },
+      { nome: "Oftalmologia", icon: iconList[4], desc: "Saúde ocular completa" },
+      { nome: "Ortopedia", icon: iconList[5], desc: "Ossos e articulações" },
+    ];
+    return especialidades.length > 0
       ? especialidades.map((esp, i) => ({
           nome: esp,
-          icon: [
-            <Stethoscope
-              key={0}
-              className="h-5 w-5 @md:h-7 @md:w-7 @lg:h-8 @lg:w-8"
-            />,
-            <Heart
-              key={1}
-              className="h-5 w-5 @md:h-7 @md:w-7 @lg:h-8 @lg:w-8"
-            />,
-            <Sparkles
-              key={2}
-              className="h-5 w-5 @md:h-7 @md:w-7 @lg:h-8 @lg:w-8"
-            />,
-            <Heart
-              key={3}
-              className="h-5 w-5 @md:h-7 @md:w-7 @lg:h-8 @lg:w-8"
-            />,
-            <Stethoscope
-              key={4}
-              className="h-5 w-5 @md:h-7 @md:w-7 @lg:h-8 @lg:w-8"
-            />,
-            <ShieldCheck
-              key={5}
-              className="h-5 w-5 @md:h-7 @md:w-7 @lg:h-8 @lg:w-8"
-            />,
-          ][i] || (
-            <Stethoscope className="h-5 w-5 @md:h-7 @md:w-7 @lg:h-8 @lg:w-8" />
-          ),
+          icon: iconList[i] || iconList[0],
           desc: "Atendimento especializado",
         }))
-      : defaultEspecialidades;
+      : defaultData;
+  }, [especialidades]);
 
-  const defaultMedicos = [
-    {
-      nome: "Dra. Ana Beatriz",
-      especialidade: "Clínico Geral",
-      crm: "CRM/SP 123456",
-      exp: "15 anos de experiência",
-    },
-    {
-      nome: "Dr. Ricardo Mendes",
-      especialidade: "Pediatria",
-      crm: "CRM/SP 234567",
-      exp: "12 anos de experiência",
-    },
-    {
-      nome: "Dra. Camila Santos",
-      especialidade: "Dermatologia",
-      crm: "CRM/SP 345678",
-      exp: "10 anos de experiência",
-    },
-  ];
-
-  const medicosData =
-    medicos.length > 0
-      ? medicos.map((m) => ({
-          ...m,
-          crm: "CRM/SP 123456",
-          exp: "10+ anos de experiência",
-        }))
-      : defaultMedicos;
+  const medicosData = useMemo(() => {
+    const defaultData = [
+      { nome: "Dra. Ana Beatriz", especialidade: "Clínico Geral", crm: "CRM/SP 182.947", exp: "15 anos de experiência" },
+      { nome: "Dr. Ricardo Mendes", especialidade: "Pediatria", crm: "CRM/SP 156.312", exp: "12 anos de experiência" },
+      { nome: "Dra. Camila Santos", especialidade: "Dermatologia", crm: "CRM/SP 201.583", exp: "10 anos de experiência" },
+    ];
+    return medicos.length > 0
+      ? medicos.map((m) => ({ ...m, crm: m.crm || "CRM/SP 000.000", exp: m.exp || "Especialista" }))
+      : defaultData;
+  }, [medicos]);
 
   // Splash + GSAP entrance animations
   useEffect(() => {
@@ -151,7 +89,7 @@ export default function ClinicaPreview({
 
     const timer = setTimeout(() => {
       setShowSplash(false);
-    }, 1800);
+    }, 500);
 
     const ctx = gsap.context(() => {
       // Splash reveal
@@ -185,7 +123,7 @@ export default function ClinicaPreview({
           clipPath: "inset(0 0% 0 0)",
           duration: 0.6,
           ease: "power2.out",
-          delay: 2,
+          delay: 0.6,
         },
       );
 
@@ -199,14 +137,14 @@ export default function ClinicaPreview({
           rotateX: 0,
           duration: 0.9,
           ease: "power4.out",
-          delay: 2.1,
+          delay: 0.7,
         },
       );
 
       gsap.fromTo(
         ".hero-sub",
         { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.6, ease: "power3.out", delay: 2.4 },
+        { opacity: 1, y: 0, duration: 0.6, ease: "power3.out", delay: 1 },
       );
 
       gsap.fromTo(
@@ -218,14 +156,14 @@ export default function ClinicaPreview({
           duration: 0.5,
           stagger: 0.1,
           ease: "power3.out",
-          delay: 2.6,
+          delay: 1.2,
         },
       );
 
       gsap.fromTo(
         ".hero-trust",
         { opacity: 0 },
-        { opacity: 1, duration: 0.6, delay: 2.9 },
+        { opacity: 1, duration: 0.6, delay: 1.5 },
       );
 
       // Section animations
@@ -238,7 +176,7 @@ export default function ClinicaPreview({
           duration: 0.6,
           stagger: 0.1,
           ease: "power3.out",
-          delay: 3.2,
+          delay: 1.7,
         },
       );
 
@@ -252,7 +190,7 @@ export default function ClinicaPreview({
           duration: 0.5,
           stagger: 0.08,
           ease: "power3.out",
-          delay: 3.4,
+          delay: 1.9,
         },
       );
 
@@ -266,7 +204,7 @@ export default function ClinicaPreview({
           duration: 0.6,
           stagger: 0.15,
           ease: "power3.out",
-          delay: 3.6,
+          delay: 2.1,
         },
       );
 
@@ -280,7 +218,7 @@ export default function ClinicaPreview({
           duration: 0.6,
           stagger: 0.15,
           ease: "back.out(2)",
-          delay: 3.7,
+          delay: 2.2,
         },
       );
 
@@ -293,7 +231,7 @@ export default function ClinicaPreview({
           duration: 0.5,
           stagger: 0.12,
           ease: "power3.out",
-          delay: 3.9,
+          delay: 2.4,
         },
       );
 
@@ -306,7 +244,7 @@ export default function ClinicaPreview({
           duration: 0.5,
           stagger: 0.12,
           ease: "power3.out",
-          delay: 4.1,
+          delay: 2.6,
         },
       );
 
@@ -320,20 +258,20 @@ export default function ClinicaPreview({
           rotateX: 0,
           duration: 0.8,
           ease: "power4.out",
-          delay: 4.3,
+          delay: 2.8,
         },
       );
 
       gsap.fromTo(
         ".cta-sub",
         { opacity: 0, y: 16 },
-        { opacity: 1, y: 0, duration: 0.6, delay: 4.5 },
+        { opacity: 1, y: 0, duration: 0.6, delay: 3 },
       );
 
       gsap.fromTo(
         ".cta-btn",
         { opacity: 0, y: 12 },
-        { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, delay: 4.7 },
+        { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, delay: 3.2 },
       );
 
       // Clinic SVG
@@ -346,71 +284,45 @@ export default function ClinicaPreview({
           y: 0,
           duration: 1,
           ease: "power3.out",
-          delay: 2.3,
+          delay: 0.9,
         },
       );
 
-      // SVG draw animation
-      const svgPaths = document.querySelectorAll(
-        ".clinic-visual rect, .clinic-visual circle, .clinic-visual path, .clinic-visual line, .clinic-visual ellipse",
-      );
-      if (svgPaths.length) {
-        gsap.fromTo(
-          svgPaths,
-          { opacity: 0, scale: 0.8, transformOrigin: "center bottom" },
-          {
-            opacity: 1,
-            scale: 1,
-            duration: 0.4,
-            stagger: 0.015,
-            ease: "power2.out",
-            delay: 2.5,
-          },
-        );
+      const svgContainer = containerRef.current?.querySelector(".clinic-visual svg");
+      if (svgContainer) {
+        const svgChildren = svgContainer.querySelectorAll("g, path, rect, circle, ellipse, line");
+        if (svgChildren.length) {
+          gsap.fromTo(
+            svgChildren,
+            { opacity: 0, scale: 0.8, transformOrigin: "center bottom" },
+            {
+              opacity: 1,
+              scale: 1,
+              duration: 0.4,
+              stagger: 0.015,
+              ease: "power2.out",
+              delay: 1.1,
+            },
+          );
+        }
       }
 
-      // People bounce in
-      gsap.fromTo(
-        ".clinic-person-1",
-        { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.6, ease: "back.out(2)", delay: 3 },
-      );
-      gsap.fromTo(
-        ".clinic-person-2",
-        { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.6, ease: "back.out(2)", delay: 3.2 },
-      );
-      gsap.fromTo(
-        ".clinic-person-3",
-        { y: 15, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.5, ease: "back.out(2)", delay: 3.4 },
-      );
-
-      // People subtle float
-      gsap.to(".clinic-person-1", {
-        y: -3,
-        duration: 2.5,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-        delay: 4,
-      });
-      gsap.to(".clinic-person-2", {
-        y: -2.5,
-        duration: 3,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-        delay: 4.3,
-      });
-      gsap.to(".clinic-person-3", {
-        y: -2,
-        duration: 2.2,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-        delay: 4.6,
-      });
+      const medicoGroup = containerRef.current?.querySelector(".clinic-visual > div > div > div:last-child");
+      if (medicoGroup) {
+        gsap.fromTo(
+          medicoGroup,
+          { y: 20, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.8, ease: "back.out(1.5)", delay: 3 },
+        );
+        gsap.to(medicoGroup, {
+          y: -3,
+          duration: 3,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+          delay: 4,
+        });
+      }
     }, containerRef);
 
     return () => {
@@ -464,13 +376,13 @@ export default function ClinicaPreview({
           </span>
         </div>
         <div className="flex items-center gap-2 @md:gap-3 @lg:gap-4">
-          <span className="hidden @md:inline text-xs @md:text-sm @lg:text-base text-gray-500 dark:text-gray-400 cursor-pointer hover:text-gray-900 dark:hover:text-gray-100">
+          <span className="hidden @md:inline text-xs @md:text-sm @lg:text-base text-gray-500 dark:text-gray-400" aria-hidden="true">
             Especialidades
           </span>
-          <span className="hidden @md:inline text-xs @md:text-sm @lg:text-base text-gray-500 dark:text-gray-400 cursor-pointer hover:text-gray-900 dark:hover:text-gray-100">
+          <span className="hidden @md:inline text-xs @md:text-sm @lg:text-base text-gray-500 dark:text-gray-400" aria-hidden="true">
             Equipe
           </span>
-          <span className="hidden @md:inline text-xs @md:text-sm @lg:text-base text-gray-500 dark:text-gray-400 cursor-pointer hover:text-gray-900 dark:hover:text-gray-100">
+          <span className="hidden @md:inline text-xs @md:text-sm @lg:text-base text-gray-500 dark:text-gray-400" aria-hidden="true">
             Contato
           </span>
           <div
@@ -496,7 +408,7 @@ export default function ClinicaPreview({
           {/* Text — 50% */}
           <div className="flex-1 min-w-0">
             <div
-              className="hero-eyebrow inline-flex items-center gap-2 mb-4 @md:mb-5 @lg:mb-6 text-[10px] @md:text-xs @lg:text-sm font-semibold tracking-widest uppercase"
+              className="hero-eyebrow inline-flex items-center gap-2 mb-4 @md:mb-5 @lg:mb-6 text-[10px] @md:text-xs @lg:text-sm font-semibold"
               style={{ color }}
             >
               <span className="w-6 h-px" style={{ backgroundColor: color }} />
@@ -578,10 +490,10 @@ export default function ClinicaPreview({
       </div>
 
       {/* ═══ DIFERENCIAIS ═══ */}
-      <div className="px-5 @md:px-10 @lg:px-16 py-8 @md:py-12 @lg:py-16 bg-gray-50 dark:bg-gray-900/50">
+      <div className="contain-section px-5 @md:px-10 @lg:px-16 py-8 @md:py-12 @lg:py-16 bg-gray-50 dark:bg-gray-900/50">
         <div className="mb-6 @md:mb-8 @lg:mb-10">
           <div
-            className="inline-flex items-center gap-2 mb-3 @md:mb-4 @lg:mb-5 text-[10px] @md:text-xs @lg:text-sm font-semibold tracking-widest uppercase"
+            className="inline-flex items-center gap-2 mb-3 @md:mb-4 @lg:mb-5 text-[10px] @md:text-xs @lg:text-sm font-semibold"
             style={{ color }}
           >
             <span className="w-6 h-px" style={{ backgroundColor: color }} />
@@ -647,10 +559,10 @@ export default function ClinicaPreview({
       </div>
 
       {/* ═══ ESPECIALIDADES ═══ */}
-      <div className="px-5 @md:px-10 @lg:px-16 py-8 @md:py-12 @lg:py-16">
+      <div className="contain-section px-5 @md:px-10 @lg:px-16 py-8 @md:py-12 @lg:py-16">
         <div className="mb-6 @md:mb-8 @lg:mb-10">
           <div
-            className="inline-flex items-center gap-2 mb-3 @md:mb-4 @lg:mb-5 text-[10px] @md:text-xs @lg:text-sm font-semibold tracking-widest uppercase"
+            className="inline-flex items-center gap-2 mb-3 @md:mb-4 @lg:mb-5 text-[10px] @md:text-xs @lg:text-sm font-semibold"
             style={{ color }}
           >
             <span className="w-6 h-px" style={{ backgroundColor: color }} />
@@ -686,10 +598,10 @@ export default function ClinicaPreview({
       </div>
 
       {/* ═══ COMO FUNCIONA ═══ */}
-      <div className="px-5 @md:px-10 @lg:px-16 py-8 @md:py-12 @lg:py-16 bg-gray-50 dark:bg-gray-900/50">
+      <div className="contain-section px-5 @md:px-10 @lg:px-16 py-8 @md:py-12 @lg:py-16 bg-gray-50 dark:bg-gray-900/50">
         <div className="mb-6 @md:mb-8 @lg:mb-10">
           <div
-            className="inline-flex items-center gap-2 mb-3 @md:mb-4 @lg:mb-5 text-[10px] @md:text-xs @lg:text-sm font-semibold tracking-widest uppercase"
+            className="inline-flex items-center gap-2 mb-3 @md:mb-4 @lg:mb-5 text-[10px] @md:text-xs @lg:text-sm font-semibold"
             style={{ color }}
           >
             <span className="w-6 h-px" style={{ backgroundColor: color }} />
@@ -740,11 +652,11 @@ export default function ClinicaPreview({
       </div>
 
       {/* ═══ EQUIPE ═══ */}
-      <div className="px-5 @md:px-10 @lg:px-16 py-8 @md:py-12 @lg:py-16">
+      <div className="contain-section px-5 @md:px-10 @lg:px-16 py-8 @md:py-12 @lg:py-16">
         <div className="flex items-center justify-between mb-6 @md:mb-8 @lg:mb-10">
           <div>
             <div
-              className="inline-flex items-center gap-2 mb-3 @md:mb-4 @lg:mb-5 text-[10px] @md:text-xs @lg:text-sm font-semibold tracking-widest uppercase"
+              className="inline-flex items-center gap-2 mb-3 @md:mb-4 @lg:mb-5 text-[10px] @md:text-xs @lg:text-sm font-semibold"
               style={{ color }}
             >
               <span className="w-6 h-px" style={{ backgroundColor: color }} />
@@ -802,10 +714,10 @@ export default function ClinicaPreview({
       </div>
 
       {/* ═══ DEPOIMENTOS ═══ */}
-      <div className="px-5 @md:px-10 @lg:px-16 py-8 @md:py-12 @lg:py-16 bg-gray-50 dark:bg-gray-900/50">
+      <div className="contain-section px-5 @md:px-10 @lg:px-16 py-8 @md:py-12 @lg:py-16 bg-gray-50 dark:bg-gray-900/50">
         <div className="mb-6 @md:mb-8 @lg:mb-10">
           <div
-            className="inline-flex items-center gap-2 mb-3 @md:mb-4 @lg:mb-5 text-[10px] @md:text-xs @lg:text-sm font-semibold tracking-widest uppercase"
+            className="inline-flex items-center gap-2 mb-3 @md:mb-4 @lg:mb-5 text-[10px] @md:text-xs @lg:text-sm font-semibold"
             style={{ color }}
           >
             <span className="w-6 h-px" style={{ backgroundColor: color }} />
@@ -819,16 +731,16 @@ export default function ClinicaPreview({
         <div className="space-y-3 @md:space-y-0 @md:grid @md:grid-cols-2 @md:gap-4 @lg:gap-5">
           {[
             {
-              name: "Maria Fernanda S.",
-              text: "Melhor clínica da região! Os médicos são muito atenciosos e o atendimento é excelente. Tudo muito organizado.",
+              name: "Marta Costa",
+              text: "Fui atendida no mesmo dia que liguei. A Dra. Ana foi muito atenciosa e explicou tudo com paciência. Voltarei com certeza.",
               rating: 5,
-              time: "há 2 semanas",
+              time: "há 3 dias",
             },
             {
-              name: "Pedro H. Oliveira",
-              text: "Agendei pelo WhatsApp e fui atendido no mesmo dia. Super recomendo! Equipe nota 10.",
+              name: "Roberto Silva",
+              text: "Minha filha de 4 anos adora o Dr. Ricardo. Ele consegue acalmar até as crianças mais agitadas. Equipe muito simpática.",
               rating: 5,
-              time: "há 1 mês",
+              time: "há 1 semana",
             },
           ].map((dep, i) => (
             <div
@@ -864,7 +776,7 @@ export default function ClinicaPreview({
                   <div className="text-[10px] @md:text-xs @lg:text-sm font-semibold">
                     {dep.name}
                   </div>
-                  <div className="text-[8px] @md:text-[9px] @lg:text-[10px] text-gray-400 dark:text-gray-500">
+                   <div className="text-[10px] @md:text-[10px] @lg:text-xs text-gray-400 dark:text-gray-500">
                     Paciente verificado
                   </div>
                 </div>
@@ -876,7 +788,7 @@ export default function ClinicaPreview({
 
       {/* ═══ CTA FINAL ═══ */}
       <div
-        className="px-5 @md:px-10 @lg:px-16 py-10 @md:py-14 @lg:py-20 text-center relative overflow-hidden"
+        className="contain-section px-5 @md:px-10 @lg:px-16 py-10 @md:py-14 @lg:py-20 text-center relative overflow-hidden"
         style={{ backgroundColor: color }}
       >
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_50%,rgba(255,255,255,0.08),transparent)]" />
@@ -924,7 +836,7 @@ export default function ClinicaPreview({
       </div>
 
       {/* ═══ FOOTER ═══ */}
-      <footer className="px-5 @md:px-10 @lg:px-16 py-6 @md:py-8 @lg:py-10 border-t border-gray-100 dark:border-gray-800">
+      <footer className="contain-section px-5 @md:px-10 @lg:px-16 py-6 @md:py-8 @lg:py-10 border-t border-gray-100 dark:border-gray-800">
         <div className="space-y-4 @lg:space-y-0 @lg:flex @lg:justify-between @lg:items-start">
           <div className="flex-1">
             <div className="flex items-center gap-2.5 mb-3 @md:mb-4">
@@ -948,14 +860,14 @@ export default function ClinicaPreview({
                   className="h-3 w-3 @md:h-3.5 @md:w-3.5 @lg:h-4 @lg:w-4 shrink-0"
                   style={{ color }}
                 />
-                Rua XV de Novembro, 123 — Sala 401 — Centro, São Paulo - SP
+                Rua Conselheiro Furtado, 840 — Sala 301 — Liberdade, São Paulo - SP
               </div>
               <div className="flex items-center gap-2 text-[10px] @md:text-xs @lg:text-sm text-gray-500 dark:text-gray-400">
                 <Phone
                   className="h-3 w-3 @md:h-3.5 @md:w-3.5 @lg:h-4 @lg:w-4 shrink-0"
                   style={{ color }}
                 />
-                (11) 3456-7890 · (11) 99876-5432
+                (11) 3456-7890 · (11) 98765-4321
               </div>
               <div className="flex items-center gap-2 text-[10px] @md:text-xs @lg:text-sm text-gray-500 dark:text-gray-400">
                 <Clock
@@ -982,7 +894,7 @@ export default function ClinicaPreview({
               {proofBadges.slice(0, 3).map((b, i) => (
                 <span
                   key={i}
-                  className="flex items-center gap-1 text-[8px] @md:text-[9px] @lg:text-[10px] font-medium"
+                  className="flex items-center gap-1 text-[10px] @md:text-[10px] @lg:text-xs font-medium"
                   style={{ color }}
                 >
                   <BadgeCheck className="h-2.5 w-2.5 @md:h-3 @md:w-3 @lg:h-3.5 @lg:w-3.5" />{" "}

@@ -55,6 +55,39 @@ export default function CTA() {
           { opacity: 1, duration: 0.6 },
           "-=0.2",
         );
+
+      gsap.fromTo(".wave-1",
+        { attr: { d: "M0,200 C240,150 480,280 720,200 C960,120 1200,280 1440,200 L1440,800 L0,800 Z" } },
+        {
+          attr: { d: "M0,280 C240,100 480,380 720,280 C960,150 1200,380 1440,280 L1440,800 L0,800 Z" },
+          duration: 4,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+        }
+      );
+
+      gsap.fromTo(".wave-2",
+        { attr: { d: "M0,350 C320,440 520,260 720,350 C920,440 1120,260 1440,350 L1440,800 L0,800 Z" } },
+        {
+          attr: { d: "M0,440 C320,540 520,320 720,440 C920,540 1120,320 1440,440 L1440,800 L0,800 Z" },
+          duration: 5,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+        }
+      );
+
+      gsap.fromTo(".wave-3",
+        { attr: { d: "M0,520 C360,450 600,600 840,520 C1080,440 1200,600 1440,520 L1440,800 L0,800 Z" } },
+        {
+          attr: { d: "M0,600 C360,510 600,700 840,600 C1080,500 1200,700 1440,600 L1440,800 L0,800 Z" },
+          duration: 6,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+        }
+      );
     }, ref);
 
     return () => ctx.revert();
@@ -67,6 +100,12 @@ export default function CTA() {
       className="py-24 md:py-32 bg-primary text-primary-foreground relative overflow-hidden"
     >
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_50%,rgba(255,255,255,0.06),transparent)]" />
+
+      <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1440 800" preserveAspectRatio="none">
+        <path className="wave wave-1" fill="rgba(255,255,255,0.15)" d="M0,200 C240,150 480,280 720,200 C960,120 1200,280 1440,200 L1440,800 L0,800 Z" />
+        <path className="wave wave-2" fill="rgba(255,255,255,0.20)" d="M0,350 C320,440 520,260 720,350 C920,440 1120,260 1440,350 L1440,800 L0,800 Z" />
+        <path className="wave wave-3" fill="rgba(255,255,255,0.28)" d="M0,520 C360,450 600,600 840,520 C1080,440 1200,600 1440,520 L1440,800 L0,800 Z" />
+      </svg>
 
       <div className="relative mx-auto max-w-4xl px-5 text-center lg:px-8">
         <h2 style={{ fontFamily: "var(--font-display), sans-serif" }} className="cta-title cta-title-split text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-[-0.03em] leading-[0.95]">

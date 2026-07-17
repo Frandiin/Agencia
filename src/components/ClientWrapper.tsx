@@ -15,6 +15,7 @@ import About from "@/components/sections/About";
 import Results from "@/components/sections/Results";
 import HowItWorks from "@/components/sections/HowItWorks";
 import PreviewGenerator from "@/components/sections/PreviewGenerator";
+import Inspirations from "@/components/sections/Inspirations";
 import Testimonials from "@/components/sections/Testimonials";
 import CTA from "@/components/sections/CTA";
 
@@ -66,6 +67,7 @@ export default function ClientWrapper() {
         <Results />
         <HowItWorks />
         <PreviewGenerator />
+        <Inspirations />
         <Testimonials />
         <CTA />
       </main>

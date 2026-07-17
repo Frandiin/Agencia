@@ -1,12 +1,13 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useMemo, useCallback, lazy, Suspense } from "react";
 import BrowserChrome from "./previews/BrowserChrome";
-import RestaurantePreview from "./previews/RestaurantePreview";
-import ClinicaPreview from "./previews/ClinicaPreview";
-import LojaPreview from "./previews/LojaPreview";
-import StudioPreview from "./previews/StudioPreview";
-import GenericoPreview from "./previews/GenericoPreview";
+
+const RestaurantePreview = lazy(() => import("./previews/RestaurantePreview"));
+const ClinicaPreview = lazy(() => import("./previews/ClinicaPreview"));
+const LojaPreview = lazy(() => import("./previews/LojaPreview"));
+const StudioPreview = lazy(() => import("./previews/StudioPreview"));
+const GenericoPreview = lazy(() => import("./previews/GenericoPreview"));
 
 const PREVIEW_BASE_WIDTH = 1200;
 
@@ -41,7 +42,7 @@ export default function SitePreview({
   const displayName = businessName || "Seu Negócio";
   const displaySlogan = slogan || "Soluções que geram resultado para o seu negócio";
 
-  const renderPreview = () => {
+  const previewContent = useMemo(() => {
     switch (businessType) {
       case "Restaurante":
         return <RestaurantePreview name={displayName} slogan={displaySlogan} color={color} proofBadges={proofBadges} extras={extras} />;
@@ -54,17 +55,23 @@ export default function SitePreview({
       default:
         return <GenericoPreview name={displayName} slogan={displaySlogan} color={color} services={services} proofBadges={proofBadges} />;
     }
-  };
+  }, [businessType, displayName, displaySlogan, color, proofBadges, extras, services]);
 
   useEffect(() => {
-    if (fullscreen) return;
+    if (fullscreen) {
+      const handleEscape = (e: KeyboardEvent) => {
+        if (e.key === "Escape") onCloseFullscreen?.();
+      };
+      document.addEventListener("keydown", handleEscape);
+      return () => document.removeEventListener("keydown", handleEscape);
+    }
 
     const updateScale = () => {
       if (!wrapperRef.current || !contentRef.current) return;
       const wrapperWidth = wrapperRef.current.clientWidth;
       const newScale = wrapperWidth / PREVIEW_BASE_WIDTH;
-      setScale(newScale);
       const height = contentRef.current.scrollHeight;
+      setScale(newScale);
       setContentHeight(Math.ceil(height * newScale));
     };
 
@@ -74,14 +81,18 @@ export default function SitePreview({
     if (wrapperRef.current) observer.observe(wrapperRef.current);
 
     return () => observer.disconnect();
-  }, [fullscreen, businessName, businessType, slogan, color, services, proofBadges, extras]);
+  }, [fullscreen, onCloseFullscreen]);
 
   if (fullscreen) {
     return (
       <div
-        className="fixed inset-0 z-50 flex flex-col overflow-hidden bg-white dark:bg-gray-950"
+        className="fixed inset-0 z-50 flex flex-col overflow-hidden bg-white dark:bg-gray-950 animate-fullscreen-in"
+        role="dialog"
+        aria-modal="true"
+        aria-label={`Preview de ${displayName}`}
         onWheel={(e) => e.stopPropagation()}
         onTouchMove={(e) => e.stopPropagation()}
+        style={{ willChange: 'opacity' }}
       >
         <div
           className="flex items-center justify-between px-4 py-2 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 shrink-0"
@@ -93,15 +104,18 @@ export default function SitePreview({
             <span className="text-[10px] text-gray-500 dark:text-gray-400">{displayName.toLowerCase().replace(/\s+/g, "")}.com.br</span>
             <button
               onClick={onCloseFullscreen}
-              className="ml-2 rounded-full px-3 py-1 text-[10px] font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+              aria-label="Fechar preview"
+              className="ml-2 rounded-full px-3 py-1.5 text-[10px] font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
             >
-              Fechar preview ✕
+              Fechar preview
             </button>
           </div>
         </div>
-        <div className="flex-1 overflow-y-auto">
-          <div className="min-h-full">
-            {renderPreview()}
+        <div className="flex-1 overflow-y-auto" style={{ overscrollBehavior: 'contain' }}>
+          <div className="min-h-full animate-content-in" style={{ willChange: 'transform, opacity' }}>
+            <Suspense fallback={<div className="flex items-center justify-center h-64 text-gray-400">Carregando...</div>}>
+              {previewContent}
+            </Suspense>
           </div>
         </div>
       </div>
@@ -127,9 +141,12 @@ export default function SitePreview({
               width: PREVIEW_BASE_WIDTH,
               transform: `scale(${scale})`,
               transformOrigin: "top left",
+              willChange: "transform",
             }}
           >
-            {renderPreview()}
+            <Suspense fallback={<div className="flex items-center justify-center h-64 text-gray-400">Carregando...</div>}>
+              {previewContent}
+            </Suspense>
           </div>
         </div>
       </div>

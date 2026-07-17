@@ -24,9 +24,9 @@ export default function GenericoPreview({ name, slogan, color, services, proofBa
           <span className="text-xs @md:text-sm @lg:text-base font-bold tracking-tight">{name}</span>
         </div>
         <div className="flex items-center gap-2 @md:gap-3 @lg:gap-5">
-          <span className="hidden @md:inline text-[10px] @md:text-xs @lg:text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 cursor-pointer">Serviços</span>
-          <span className="hidden @md:inline text-[10px] @md:text-xs @lg:text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 cursor-pointer">Sobre</span>
-          <span className="hidden @md:inline text-[10px] @md:text-xs @lg:text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 cursor-pointer">Contato</span>
+          <span className="hidden @md:inline text-[10px] @md:text-xs @lg:text-sm text-gray-500 dark:text-gray-400" aria-hidden="true">Serviços</span>
+          <span className="hidden @md:inline text-[10px] @md:text-xs @lg:text-sm text-gray-500 dark:text-gray-400" aria-hidden="true">Sobre</span>
+          <span className="hidden @md:inline text-[10px] @md:text-xs @lg:text-sm text-gray-500 dark:text-gray-400" aria-hidden="true">Contato</span>
           <div className="rounded-full px-2.5 py-1 @md:px-4 @md:py-1.5 @lg:px-5 @lg:py-2 text-[10px] @md:text-xs @lg:text-sm font-semibold text-white" style={{ backgroundColor: color }}>
             Fale Conosco
           </div>
@@ -60,9 +60,9 @@ export default function GenericoPreview({ name, slogan, color, services, proofBa
       {/* ═══ STATS ═══ */}
       <div className="grid grid-cols-3 border-b border-gray-200 dark:border-gray-700/50">
         {[
-          { num: "500+", label: "Clientes atendidos" },
-          { num: "99%", label: "Satisfação" },
-          { num: "30d", label: "Prazo de entrega" },
+          { num: "120+", label: "Projetos entregues" },
+          { num: "96%", label: "Clientes satisfeitos" },
+          { num: "15 dias", label: "Prazo médio" },
         ].map((s, i) => (
           <div key={i} className="px-2 @md:px-4 @lg:px-6 py-3 @md:py-5 @lg:py-6 text-center border-r border-gray-200 dark:border-gray-700/50 last:border-r-0">
             <div className="text-base @md:text-xl @lg:text-3xl font-bold" style={{ color }}>{s.num}</div>
@@ -74,7 +74,7 @@ export default function GenericoPreview({ name, slogan, color, services, proofBa
       {/* ═══ SERVIÇOS ═══ */}
       <div className="px-4 @md:px-8 @lg:px-12 py-5 @md:py-8 @lg:py-12">
         <div className="text-center mb-4 @md:mb-6 @lg:mb-8">
-          <span className="text-[10px] @md:text-xs @lg:text-sm font-bold uppercase tracking-widest" style={{ color }}>Serviços</span>
+          <span className="text-[10px] @md:text-xs @lg:text-sm font-bold" style={{ color }}>Serviços</span>
           <h2 className="text-lg @md:text-2xl @lg:text-3xl font-bold tracking-tight mt-1">O que oferecemos</h2>
         </div>
         <div className="grid grid-cols-3 @lg:grid-cols-3 gap-2 @md:gap-4 @lg:gap-5">
@@ -93,7 +93,7 @@ export default function GenericoPreview({ name, slogan, color, services, proofBa
       {/* ═══ CONFIANÇA ═══ */}
       <div className="px-4 @md:px-8 @lg:px-12 py-5 @md:py-8 @lg:py-10 bg-gray-50 dark:bg-gray-900/50">
         <div className="text-center mb-4 @md:mb-6 @lg:mb-8">
-          <span className="text-[10px] @md:text-xs @lg:text-sm font-bold uppercase tracking-widest" style={{ color }}>Por que nos escolher</span>
+          <span className="text-[10px] @md:text-xs @lg:text-sm font-bold" style={{ color }}>Por que nos escolher</span>
           <h2 className="text-lg @md:text-2xl @lg:text-3xl font-bold tracking-tight mt-1">Nossa garantia</h2>
         </div>
         <div className="flex flex-wrap items-center justify-center gap-3 @md:gap-6 @lg:gap-8">
@@ -109,7 +109,7 @@ export default function GenericoPreview({ name, slogan, color, services, proofBa
       {/* ═══ DEPOIMENTOS ═══ */}
       <div className="px-4 @md:px-8 @lg:px-12 py-5 @md:py-8 @lg:py-12">
         <div className="text-center mb-4 @md:mb-6 @lg:mb-8">
-          <span className="text-[10px] @md:text-xs @lg:text-sm font-bold uppercase tracking-widest" style={{ color }}>Depoimentos</span>
+          <span className="text-[10px] @md:text-xs @lg:text-sm font-bold" style={{ color }}>Depoimentos</span>
           <h2 className="text-lg @md:text-2xl @lg:text-3xl font-bold tracking-tight mt-1">O que dizem sobre nós</h2>
         </div>
         <div className="space-y-2 @md:space-y-0 @md:grid @md:grid-cols-2 @md:gap-4 @lg:gap-5">

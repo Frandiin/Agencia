@@ -28,9 +28,9 @@ export default function LojaPreview({ name, slogan, color, proofBadges, extras }
           <span className="text-xs @md:text-sm @lg:text-base font-bold tracking-tight">{name}</span>
         </div>
         <div className="flex items-center gap-2 @md:gap-3 @lg:gap-5">
-          <span className="hidden @md:inline text-[10px] @md:text-xs @lg:text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 cursor-pointer">Catálogo</span>
-          <span className="hidden @md:inline text-[10px] @md:text-xs @lg:text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 cursor-pointer">Ofertas</span>
-          <span className="hidden @md:inline text-[10px] @md:text-xs @lg:text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 cursor-pointer">Sobre</span>
+          <span className="hidden @md:inline text-[10px] @md:text-xs @lg:text-sm text-gray-500 dark:text-gray-400" aria-hidden="true">Catálogo</span>
+          <span className="hidden @md:inline text-[10px] @md:text-xs @lg:text-sm text-gray-500 dark:text-gray-400" aria-hidden="true">Ofertas</span>
+          <span className="hidden @md:inline text-[10px] @md:text-xs @lg:text-sm text-gray-500 dark:text-gray-400" aria-hidden="true">Sobre</span>
           <div className="relative">
             <ShoppingCart className="h-4 w-4 @md:h-5 @md:w-5 @lg:h-6 @lg:w-6" style={{ color }} />
             <div className="absolute -top-1.5 -right-2 h-3.5 w-3.5 @md:h-4 @md:w-4 @lg:h-5 @lg:w-5 rounded-full bg-red-500 text-[7px] @md:text-[8px] @lg:text-[10px] text-white flex items-center justify-center font-bold">2</div>
@@ -54,7 +54,7 @@ export default function LojaPreview({ name, slogan, color, proofBadges, extras }
       <div className="px-4 @md:px-8 @lg:px-12 py-5 @md:py-8 @lg:py-12">
         <div className="flex items-center justify-between mb-4 @md:mb-6 @lg:mb-8">
           <div>
-            <span className="text-[10px] @md:text-xs @lg:text-sm font-bold uppercase tracking-widest" style={{ color }}>Destaques</span>
+            <span className="text-[10px] @md:text-xs @lg:text-sm font-bold" style={{ color }}>Destaques</span>
             <h2 className="text-lg @md:text-2xl @lg:text-3xl font-bold tracking-tight mt-1">Mais Vendidos</h2>
           </div>
           <span className="text-[10px] @md:text-xs @lg:text-sm font-medium cursor-pointer flex items-center gap-1" style={{ color }}>
@@ -112,7 +112,7 @@ export default function LojaPreview({ name, slogan, color, proofBadges, extras }
       {/* ═══ DEPOIMENTOS ═══ */}
       <div className="px-4 @md:px-8 @lg:px-12 py-5 @md:py-8 @lg:py-12">
         <div className="text-center mb-4 @md:mb-6 @lg:mb-8">
-          <span className="text-[10px] @md:text-xs @lg:text-sm font-bold uppercase tracking-widest" style={{ color }}>Avaliações</span>
+          <span className="text-[10px] @md:text-xs @lg:text-sm font-bold" style={{ color }}>Avaliações</span>
           <h2 className="text-lg @md:text-2xl @lg:text-3xl font-bold tracking-tight mt-1">O que nossos clientes dizem</h2>
         </div>
         <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-3.5 @md:p-5 @lg:p-6 @md:grid @md:grid-cols-2 @md:gap-4 @lg:gap-5">
